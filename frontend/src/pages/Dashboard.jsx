@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import circle from "../Asset/HomePage-circle.png";
 
@@ -19,9 +20,11 @@ function Dashboard() {
             organization’s purchase <br /> and repair logs.{" "}
           </p>
         </div>
-        <div id="down-get-started-btn" className="btn">
-          Get Started
-        </div>
+        <Link to="/signup">
+          <div id="down-get-started-btn" className="btn">
+            Get Started
+          </div>
+        </Link>
       </div>
       <div className="right-home">
         <img id="circle" src={circle} alt="" srcSet="" />

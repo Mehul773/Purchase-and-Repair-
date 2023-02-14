@@ -6,7 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
-function LoginDean() {
+function LoginHOD() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -94,4 +94,4 @@ function LoginDean() {
   );
 }
 
-export default LoginDean;
+export default LoginHOD;

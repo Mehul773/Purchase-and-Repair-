@@ -5,13 +5,14 @@ const Hod = require("../models/hodModel");
 // Signup route
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, department } = req.body;
     const us = await Hod.findOne({ email });
     if (!us) {
       const user = new Hod({
         name,
         email,
         password,
+        department,
       });
       await user.save();
       res.json({ message: "Signup successful" });

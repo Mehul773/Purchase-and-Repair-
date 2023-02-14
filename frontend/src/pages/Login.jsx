@@ -3,6 +3,7 @@ import logodean from "../Asset/Dean1.png";
 import logohod from "../Asset/Hod.png";
 import logopc from "../Asset/Pc.png";
 import logoAdmin from "../Asset/Admin.png";
+import { Link } from "react-router-dom";
 
 function ChooseS() {
   return (
@@ -13,25 +14,40 @@ function ChooseS() {
         </p>
       </div>
       <div className="outer-rect">
-        <div className="inner-rect">
-          <img src={logoAdmin} className="choose-actor-img" alt="" srcSet="" />
-          <p className="choose-actor-text">Admin</p>
-        </div>
-        <div className="inner-rect">
-          <img src={logodean} className="choose-actor-img" alt="" srcSet="" />
-          <p className="choose-actor-text">Dean</p>
-        </div>
-        <div className="inner-rect">
-          <img src={logohod} className="choose-actor-img" alt="" srcSet="" />
-          <p className="choose-actor-text">HOD</p>
-        </div>
-        <div className="inner-rect">
-          <img src={logopc} className="choose-actor-img" alt="" srcSet="" />
-          <p className="choose-actor-text">
-            Purchase <br />
-            Co-ordinator
-          </p>
-        </div>
+        <Link to="/login/admin">
+          <div className="inner-rect">
+            <img
+              src={logoAdmin}
+              className="choose-actor-img"
+              alt=""
+              srcSet=""
+            />
+            <p className="choose-actor-text">Admin</p>
+          </div>
+        </Link>
+
+        <Link to="/login/dean">
+          <div className="inner-rect">
+            <img src={logodean} className="choose-actor-img" alt="" srcSet="" />
+            <p className="choose-actor-text">Dean</p>
+          </div>
+        </Link>
+        <Link to="/login/hod">
+          <div className="inner-rect">
+            <img src={logohod} className="choose-actor-img" alt="" srcSet="" />
+            <p className="choose-actor-text">HOD</p>
+          </div>
+        </Link>
+
+        <Link to="/login/pc">
+          <div className="inner-rect">
+            <img src={logopc} className="choose-actor-img" alt="" srcSet="" />
+            <p className="choose-actor-text">
+              Purchase <br />
+              Co-ordinator
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );

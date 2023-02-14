@@ -6,23 +6,27 @@ function Header() {
   return (
     <div>
       <header className="header">
-        <div id="left">
-          <div>
-            <img id="logo" src={logo} alt="PR" />
+        <Link to="/">
+          <div id="left">
+            <div>
+              <img id="logo" src={logo} alt="PR" />
+            </div>
+            <div id="pr">
+              <p>Purchase and Repair</p>
+            </div>
           </div>
-          <div id="pr">
-            <p>Purchase and Repair</p>
-          </div>
-        </div>
+        </Link>
+
         <div id="right">
           <ul className="nav-links">
+            <Link to="signup">
+              <li>Sign Up</li>
+            </Link>
+
             <li>
-              <a href="#">Sign Up</a>
-            </li>
-            <li>
-              <button className="btn">
-                <a href="#">Login</a>
-              </button>
+              <Link to="/login">
+                <button className="btn">Login</button>
+              </Link>
             </li>
           </ul>
         </div>
