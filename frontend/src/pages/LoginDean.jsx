@@ -4,11 +4,14 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
+import authDean from "../utils/authDean";
 
 function LoginDean() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,10 +34,11 @@ function LoginDean() {
           //   window.location.href = "http://localhost:3000/user/dashboard";
           // }
           if (response.data.message === "Successfully logged in") {
-            localStorage.setItem("isLoggedIn", true);
             toast.success("Successfully logged in");
-            // localStorage.setItem('userDetail',response.data.user)
-            // window.location.href = "/user/dashboard";
+            localStorage.setItem("isDeanLogged", true);
+            navigate("/user/dean/dashboard", {
+              state: { user: response.data.user },
+            });
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
@@ -94,4 +98,4 @@ function LoginDean() {
   );
 }
 
-export default LoginDean;
+export default authDean(LoginDean);

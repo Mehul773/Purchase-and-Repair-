@@ -5,13 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import authDean from "../utils/authDean";
 
 function SignUpDean() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
-  const [sessionExpiration, setSessionExpiration] = useState(null);
 
   const navigate = useNavigate();
 
@@ -21,20 +21,19 @@ function SignUpDean() {
       toast.error("Email and password fields are required");
     } else {
       // make a POST request to the login route on the back-end server
-
       await axios
         .post("http://localhost:5000/dean/signup", {
           email: email,
           password: password,
+          name: username,
         })
         .then((response) => {
           if (response.data.message === "User Already Exists") {
             toast.error("User Already Exists");
           } else if (response.data.message === "Signup successful") {
             toast.success("Successfully signed up");
-            localStorage.setItem("isLoggedIn", true);
-            setSessionExpiration(Date.now() + 3600000);
-            navigate("/user/dashboard");
+            localStorage.setItem("isDeanLogged", true);
+            navigate("/user/dean/dashboard");
           }
         });
     }
@@ -107,4 +106,4 @@ function SignUpDean() {
   );
 }
 
-export default SignUpDean;
+export default authDean(SignUpDean);

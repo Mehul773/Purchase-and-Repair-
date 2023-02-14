@@ -17,6 +17,11 @@ const pcSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+
+    department: {
+      type: String,
+      required: [true, "Please add department"],
+    },
   },
   {
     timestamp: true,

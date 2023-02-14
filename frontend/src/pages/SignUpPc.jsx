@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import authPc from "../utils/authPc";
 
 function SignUpPc() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,8 @@ function SignUpPc() {
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [department, setDepartment] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSingup = async (event) => {
     event.preventDefault();
@@ -47,9 +50,8 @@ function SignUpPc() {
             toast.error("User Already Exists");
           } else if (response.data.message === "Signup successful") {
             toast.success("Successfully signed up");
-            localStorage.setItem("isLoggedIn", true);
-            //setSessionExpiration(Date.now() + 3600000);
-            // navigate("/user/dashboard");
+            localStorage.setItem("isPcLogged", true);
+            navigate("/user/pc/dashboard");
           }
         });
     }
@@ -138,4 +140,4 @@ function SignUpPc() {
   );
 }
 
-export default SignUpPc;
+export default authPc(SignUpPc);

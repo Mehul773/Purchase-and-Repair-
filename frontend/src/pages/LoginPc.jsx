@@ -5,10 +5,13 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import authPc from "../utils/authPc";
 
 function LoginPc() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,10 +34,11 @@ function LoginPc() {
           //   window.location.href = "http://localhost:3000/user/dashboard";
           // }
           if (response.data.message === "Successfully logged in") {
-            localStorage.setItem("isLoggedIn", true);
             toast.success("Successfully logged in");
-            // localStorage.setItem('userDetail',response.data.user)
-            // window.location.href = "/user/dashboard";
+            localStorage.setItem("isPcLogged", true);
+            navigate("/user/pc/dashboard", {
+              state: { user: response.data.user },
+            });
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
@@ -94,4 +98,4 @@ function LoginPc() {
   );
 }
 
-export default LoginPc;
+export default authPc(LoginPc);

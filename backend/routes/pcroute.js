@@ -5,13 +5,14 @@ const PurchaseCoordinator = require("../models/pcModel");
 // Signup route
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, department } = req.body;
     const us = await PurchaseCoordinator.findOne({ email });
     if (!us) {
       const user = new PurchaseCoordinator({
         name,
         email,
         password,
+        department,
       });
       await user.save();
       res.json({ message: "Signup successful" });
