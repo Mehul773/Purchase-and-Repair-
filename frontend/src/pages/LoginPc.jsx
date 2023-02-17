@@ -98,4 +98,4 @@ function LoginPc() {
   );
 }
 
-export default authPc(LoginPc);
+export default LoginPc;

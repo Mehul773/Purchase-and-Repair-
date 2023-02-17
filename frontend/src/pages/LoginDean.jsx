@@ -40,6 +40,8 @@ function LoginDean() {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
             toast.error("User not found");
+          } else if (response.data.message === "Pending Status") {
+            toast.error("Your request is still pending");
           } else {
             console.log(response.data.message);
             toast.error("Email and Password fields are invalid");

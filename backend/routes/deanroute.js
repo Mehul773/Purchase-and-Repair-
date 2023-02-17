@@ -6,11 +6,13 @@ const { protect } = require("../middleware/authMiddleware");
 const {
   loginDean,
   registerDean,
-  getDean,
+  getAllPending,
+  makeActive,
 } = require("../controller/deanController");
 
 router.post("/login", loginDean);
 router.post("/signup", registerDean);
-router.get("/dashboard", protect, getDean);
+router.post("/req", getAllPending);
+router.post("/status", makeActive);
 
 module.exports = router;

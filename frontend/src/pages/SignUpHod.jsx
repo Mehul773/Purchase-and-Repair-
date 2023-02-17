@@ -49,8 +49,9 @@ function SignUpHod() {
         .then((response) => {
           if (response.data.message === "User Already Exists") {
             toast.error("User Already Exists");
-          } else if (response.data.message === "Successfully signed up") {
-            toast.success("Successfully signed up");
+          } else {
+            toast.success("Signup request is sent to admin");
+            /*             navigate("/request", { state: { user: response.data.email } }); */
           }
         });
     }

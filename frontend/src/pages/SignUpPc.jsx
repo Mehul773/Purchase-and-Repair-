@@ -26,7 +26,7 @@ function SignUpPc() {
       confirmpassword === "" ||
       department === ""
     ) {
-      toast.error("Email and password fields are required");
+      toast.error("All fields are required");
     } else if (password !== confirmpassword) {
       toast.error("Password does not match");
     } else {
@@ -51,7 +51,7 @@ function SignUpPc() {
             toast.error("User Already Exists");
           } else {
             toast.success("Signup request is sent to admin");
-/*             navigate("/request", { state: { user: response.data.email } }); */
+            /*             navigate("/request", { state: { user: response.data.email } }); */
           }
         });
     }

@@ -36,6 +36,7 @@ function LoginAdmin() {
           // }
           if (response.data.message === "Successfully logged in") {
             toast.success("Successfully logged in");
+            window.location = "/user/admin/dashboard"
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
