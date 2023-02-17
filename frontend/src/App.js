@@ -11,13 +11,17 @@ import LoginAdmin from "./pages/LoginAdmin";
 import LoginDean from "./pages/LoginDean";
 import LoginHod from "./pages/LoginHod";
 import LoginPc from "./pages/LoginPc";
+import AdminApproval from "./pages/AdminApproval";
+import PcDashboard from "./pages/PcDashboard";
+import RequestPending from "./pages/RequestPending";
+import DeanDashboard from "./pages/DeanDashboard";
+import VerifyDean from "./pages/VerifyDean";
 
 function App() {
   return (
     <>
       <Router>
         <div className="App">
-          <Header />
           <Routes>
             <Route path="/" element={<Dashboard></Dashboard>}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
@@ -35,6 +39,13 @@ function App() {
             <Route path="/login/dean" element={<LoginDean></LoginDean>}></Route>
             <Route path="/login/hod" element={<LoginHod></LoginHod>}></Route>
             <Route path="/login/pc" element={<LoginPc></LoginPc>}></Route>
+            <Route
+              path="/user/admin/dashboard"
+              element={<AdminApproval />}
+            ></Route>
+            <Route path="/user/pc/dashboard" element={<PcDashboard />}></Route>
+            <Route path="/request" element={<RequestPending />}></Route>
+            <Route path="/dean/dashboard" element={<VerifyDean />}></Route>
           </Routes>
         </div>
       </Router>

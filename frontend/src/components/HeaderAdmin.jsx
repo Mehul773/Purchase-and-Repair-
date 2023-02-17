@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../Asset/logo3.png";
 import { Link } from "react-router-dom";
 
-function Header() {
+function HeaderAdmin() {
   return (
     <div>
       <header className="header">
@@ -19,13 +19,9 @@ function Header() {
 
         <div id="right">
           <ul className="nav-links">
-            <Link to="/signup">
-              <li>Sign Up</li>
-            </Link>
-
             <li>
               <Link to="/login">
-                <button className="btn">Login</button>
+                <button className="btn">Logout</button>
               </Link>
             </li>
           </ul>
@@ -35,4 +31,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderAdmin;

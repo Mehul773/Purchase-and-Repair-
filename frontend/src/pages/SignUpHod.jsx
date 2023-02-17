@@ -6,6 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import authHod from "../utils/authHod";
+import Header from "../components/Header";
 
 function SignUpHod() {
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ function SignUpHod() {
       confirmpassword === "" ||
       department === ""
     ) {
-      toast.error("Email and password fields are required");
+      toast.error("All fields are required");
     } else if (password !== confirmpassword) {
       toast.error("Password does not match");
     } else {
@@ -48,16 +49,15 @@ function SignUpHod() {
         .then((response) => {
           if (response.data.message === "User Already Exists") {
             toast.error("User Already Exists");
-          } else if (response.data.message === "Signup successful") {
+          } else if (response.data.message === "Successfully signed up") {
             toast.success("Successfully signed up");
-            localStorage.setItem("isHodLogged", true);
-            navigate("/user/hod/dashboard");
           }
         });
     }
   };
   return (
     <div>
+      <Header />
       <ToastContainer />
       <div className="main">
         <div className="main-left">

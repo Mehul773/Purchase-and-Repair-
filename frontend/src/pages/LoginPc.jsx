@@ -6,6 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import authPc from "../utils/authPc";
+import Header from "../components/Header";
 
 function LoginPc() {
   const [email, setEmail] = useState("");
@@ -35,14 +36,12 @@ function LoginPc() {
           // }
           if (response.data.message === "Successfully logged in") {
             toast.success("Successfully logged in");
-            localStorage.setItem("isPcLogged", true);
-            navigate("/user/pc/dashboard", {
-              state: { user: response.data.user },
-            });
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
             toast.error("User not found");
+          } else if (response.data.message === "Pending Status") {
+            toast.error("Your request is still pending");
           } else {
             console.log(response.data.message);
             toast.error("Email and Password fields are invalid");
@@ -52,6 +51,7 @@ function LoginPc() {
   };
   return (
     <div>
+      <Header />
       <ToastContainer />
       <div className="main">
         <div className="main-left">

@@ -3,10 +3,12 @@ import logodean from "../Asset/Dean1.png";
 import logohod from "../Asset/Hod.png";
 import logopc from "../Asset/Pc.png";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 function SignUp() {
   return (
     <div>
+      <Header />
       <div className="workspace-chooses">
         <div className="text-role">
           <p className="text-color" id="role-text">

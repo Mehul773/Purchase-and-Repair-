@@ -6,6 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import authPc from "../utils/authPc";
+import Header from "../components/Header";
 
 function SignUpPc() {
   const [email, setEmail] = useState("");
@@ -48,16 +49,16 @@ function SignUpPc() {
         .then((response) => {
           if (response.data.message === "User Already Exists") {
             toast.error("User Already Exists");
-          } else if (response.data.message === "Signup successful") {
-            toast.success("Successfully signed up");
-            localStorage.setItem("isPcLogged", true);
-            navigate("/user/pc/dashboard");
+          } else {
+            toast.success("Signup request is sent to admin");
+/*             navigate("/request", { state: { user: response.data.email } }); */
           }
         });
     }
   };
   return (
     <div>
+      <Header />
       <ToastContainer />
       <div className="main">
         <div className="main-left">
@@ -140,4 +141,4 @@ function SignUpPc() {
   );
 }
 
-export default authPc(SignUpPc);
+export default SignUpPc;

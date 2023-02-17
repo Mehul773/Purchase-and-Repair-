@@ -6,6 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import authDean from "../utils/authDean";
+import Header from "../components/Header";
 
 function SignUpDean() {
   const [email, setEmail] = useState("");
@@ -17,8 +18,15 @@ function SignUpDean() {
 
   const handleSingup = async (event) => {
     event.preventDefault();
-    if (email === "" || password === "") {
-      toast.error("Email and password fields are required");
+    if (
+      email === "" ||
+      password === "" ||
+      username === "" ||
+      confirmpassword === ""
+    ) {
+      toast.error("All fields are required");
+    } else if (password !== confirmpassword) {
+      toast.error("Password does not match");
     } else {
       // make a POST request to the login route on the back-end server
       await axios
@@ -30,16 +38,15 @@ function SignUpDean() {
         .then((response) => {
           if (response.data.message === "User Already Exists") {
             toast.error("User Already Exists");
-          } else if (response.data.message === "Signup successful") {
+          } else if (response.data.message === "Successfully signed up") {
             toast.success("Successfully signed up");
-            localStorage.setItem("isDeanLogged", true);
-            navigate("/user/dean/dashboard");
           }
         });
     }
   };
   return (
     <div>
+      <Header />
       <ToastContainer />
       <div className="main">
         <div className="main-left">
@@ -106,4 +113,4 @@ function SignUpDean() {
   );
 }
 
-export default authDean(SignUpDean);
+export default SignUpDean;

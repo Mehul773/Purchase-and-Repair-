@@ -6,6 +6,7 @@ import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import authAdmin from "../utils/authAdmin";
+import Header from "../components/Header";
 
 function LoginAdmin() {
   const [email, setEmail] = useState("");
@@ -35,10 +36,6 @@ function LoginAdmin() {
           // }
           if (response.data.message === "Successfully logged in") {
             toast.success("Successfully logged in");
-            localStorage.setItem("isAdminLogged", true);
-            navigate("/user/admin/dashboard", {
-              state: { user: response.data.user },
-            });
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
@@ -52,6 +49,7 @@ function LoginAdmin() {
   };
   return (
     <div>
+      <Header />
       <ToastContainer />
       <div className="main">
         <div className="main-left">
