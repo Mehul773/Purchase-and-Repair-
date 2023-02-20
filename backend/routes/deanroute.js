@@ -14,5 +14,6 @@ router.post("/login", loginDean);
 router.post("/signup", registerDean);
 router.post("/req", getAllPending);
 router.post("/status", makeActive);
+router.get("/dashboard", protect, (req, res) => {});
 
 module.exports = router;

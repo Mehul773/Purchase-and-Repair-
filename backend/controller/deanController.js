@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Dean = require("../models/deanModel");
+const nodemailer = require("../config/nodemailer.config");
+const { protect } = require("../middleware/authMiddleware");
 
 const loginDean = async (req, res) => {
   try {
@@ -74,14 +76,23 @@ const registerDean = async (req, res) => {
         expires: new Date(Date.now() + 86400000),
       });
 
-      await user.save();
-
-      res.status(201).json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: token,
-        message: "Successfully signed up",
+      await user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        console.log("Before nodemailer:::::::::::::::::::::::");
+        console.log(user.name);
+        console.log(user.email);
+        console.log(user.tokens[0].token);
+        nodemailer.sendConfirmationEmail(user.name, user.email, user.tokens);
+        res.status(201).json({
+          _id: user.id,
+          name: user.name,
+          email: user.email,
+          token: token,
+          message: "Successfully signed up",
+        });
       });
     } else {
       res.status(400);
@@ -119,14 +130,16 @@ const makeActive = async (req, res) => {
 
       dean.save((err, pcs) => {
         if (err) return res.status(500).send(err);
-        res.send(pcs);
+        nodemailer.sendActivationEmail(dean.name, dean.email, dean.tokens);
+        res.send(dean);
       });
     });
   } catch (error) {
     console.log(error);
   }
 };
-/* const generateToken = (id) => {
+
+/* const generateToken = (id) => {  
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 }; */
 

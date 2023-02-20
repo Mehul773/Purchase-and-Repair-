@@ -35,7 +35,9 @@ function LoginDean() {
           //   window.location.href = "http://localhost:3000/user/dashboard";
           // }
           if (response.data.message === "Successfully logged in") {
+            localStorage.setItem("deanToken", response.data.token);
             toast.success("Successfully logged in");
+            window.location.href = "/dean/dashboard";
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {

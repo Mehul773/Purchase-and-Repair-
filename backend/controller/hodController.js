@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Hod = require("../models/hodModel");
+const nodemailer = require("../config/nodemailer.config");
 
 const loginHod = async (req, res) => {
   try {
@@ -75,14 +76,23 @@ const registerHod = async (req, res) => {
         expires: new Date(Date.now() + 86400000),
       });
 
-      await user.save();
-
-      res.status(201).json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: token,
-        message: "Successfully signed up",
+      await user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        console.log("Before nodemailer:::::::::::::::::::::::");
+        console.log(user.name);
+        console.log(user.email);
+        console.log(user.tokens[0].token);
+        nodemailer.sendConfirmationEmail(user.name, user.email, user.tokens);
+        res.status(201).json({
+          _id: user.id,
+          name: user.name,
+          email: user.email,
+          token: token,
+          message: "Successfully signed up",
+        });
       });
     } else {
       res.status(400);
@@ -119,8 +129,9 @@ const makeActive = async (req, res) => {
       }
 
       hod.save((err, hod) => {
-        if (err) return res.status(500).send(err);
-        res.send(hod);
+          if (err) return res.status(500).send(err);
+          nodemailer.sendActivationEmail(hod.name, hod.email, hod.tokens);
+          res.send(hod);
       });
     });
   } catch (error) {

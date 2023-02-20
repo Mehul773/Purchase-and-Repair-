@@ -23,7 +23,7 @@ const deanSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    
+
     tokens: [
       {
         token: {

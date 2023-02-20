@@ -45,7 +45,7 @@ function App() {
             ></Route>
             <Route path="/user/pc/dashboard" element={<PcDashboard />}></Route>
             <Route path="/request" element={<RequestPending />}></Route>
-            <Route path="/dean/dashboard" element={<VerifyDean />}></Route>
+            <Route path="/dean/dashboard" element={<DeanDashboard />}></Route>
           </Routes>
         </div>
       </Router>
