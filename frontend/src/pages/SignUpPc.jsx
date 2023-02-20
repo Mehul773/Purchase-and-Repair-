@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import authPc from "../utils/authPc";
 import Header from "../components/Header";
 
 function SignUpPc() {

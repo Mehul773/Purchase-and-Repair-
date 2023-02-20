@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import authAdmin from "../utils/authAdmin";
 import Header from "../components/Header";
 
 function LoginAdmin() {
@@ -19,24 +18,19 @@ function LoginAdmin() {
     if (email === "" || password === "") {
       toast.error("Email and password fields are required");
     } else {
-      // make a POST request to the login route on the back-end server
-
       await axios
-        .post("http://localhost:5000/admin/login", {
-          email: email,
-          password: password,
-        })
+        .post(
+          "http://localhost:5000/admin/login",
+          {
+            email: email,
+            password: password,
+          },
+          { withCredentials: true }
+        )
         .then((response) => {
-          // if the login is successful, redirect to the dashboard
-          // if(response.data){console.log(response.data)
-          //   localStorage.setItem("user", response.data);
-          //   localStorage.setItem("isLoggedIn", true);
-          //   setSessionExpiration(Date.now() + 3600000);
-          //   window.location.href = "http://localhost:3000/user/dashboard";
-          // }
           if (response.data.message === "Successfully logged in") {
             toast.success("Successfully logged in");
-            window.location = "/user/admin/dashboard"
+            navigate("/admin/dashboard");
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {
@@ -90,11 +84,11 @@ function LoginAdmin() {
           </div>
         </div>
         <div className="main-right">
-          <img src={login} className="login-img" srcSet="" />
+          <img src={login} className="login-img" srcSet="" alt="login" />
         </div>
       </div>
     </div>
   );
 }
 
-export default authAdmin(LoginAdmin);
+export default LoginAdmin;

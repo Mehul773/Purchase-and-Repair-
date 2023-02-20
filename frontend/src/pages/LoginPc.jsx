@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import authPc from "../utils/authPc";
 import Header from "../components/Header";
 
 function LoginPc() {
@@ -22,20 +21,18 @@ function LoginPc() {
       // make a POST request to the login route on the back-end server
 
       await axios
-        .post("http://localhost:5000/pc/login", {
-          email: email,
-          password: password,
-        })
+        .post(
+          "http://localhost:5000/pc/login",
+          {
+            email: email,
+            password: password,
+          },
+          { withCredentials: true }
+        )
         .then((response) => {
-          // if the login is successful, redirect to the dashboard
-          // if(response.data){console.log(response.data)
-          //   localStorage.setItem("user", response.data);
-          //   localStorage.setItem("isLoggedIn", true);
-          //   setSessionExpiration(Date.now() + 3600000);
-          //   window.location.href = "http://localhost:3000/user/dashboard";
-          // }
           if (response.data.message === "Successfully logged in") {
             toast.success("Successfully logged in");
+            navigate("/pc/dashboard");
           } else if (response.data.message === "Invalid Password") {
             toast.error("Invalid Password");
           } else if (response.data.message === "User not found") {

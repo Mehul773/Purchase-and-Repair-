@@ -1,9 +1,20 @@
 import React from "react";
-import authBackPc from "../utils/authBackPc";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function PcDashboard() {
-  return <div>PcDashboard</div>;
-}
+const VerifyPc = () => {
+  const [verify, setverify] = useState(false);
 
-/* export default authBackPc(PcDashboard); */
-export default PcDashboard;
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
+      .then((response) => {
+        setverify(true);
+      })
+      .catch((err) => console.log(err));
+  });
+
+  return <>{verify ? <div>Hii</div> : <div>Page does not exist</div>}</>;
+};
+
+export default VerifyPc;

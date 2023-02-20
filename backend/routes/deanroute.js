@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Dean = require("../models/deanModel");
-const { protect } = require("../middleware/authMiddleware");
+const { protectDean } = require("../middleware/authDean");
 
 const {
   loginDean,
@@ -14,6 +14,8 @@ router.post("/login", loginDean);
 router.post("/signup", registerDean);
 router.post("/req", getAllPending);
 router.post("/status", makeActive);
-router.get("/dashboard", protect, (req, res) => {});
+router.get("/dashboard", protectDean, (req, res) => {
+  res.json({ message: "Authorized" });
+});
 
 module.exports = router;

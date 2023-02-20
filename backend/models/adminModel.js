@@ -19,14 +19,9 @@ const adminSchema = mongoose.Schema(
       required: [true, "Please add a password"],
     },
 
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    token: {
+      type: String,
+    },
   },
   {
     timestamp: true,
@@ -36,11 +31,10 @@ const adminSchema = mongoose.Schema(
 adminSchema.methods.generateAuthToken = async function () {
   try {
     const token_final = jwt.sign(
-      { username: this._id.toString() },
+      { _id: this._id.toString() },
       process.env.JWT_SECRET
     );
-    this.tokens = this.tokens.concat({ token: token_final });
-    console.log(`Token final ${token_final}`);
+    this.token = token_final;
     await this.save();
     return token_final;
   } catch (error) {

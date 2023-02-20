@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import authHod from "../utils/authHod";
 import Header from "../components/Header";
 
 function SignUpHod() {
@@ -141,4 +140,4 @@ function SignUpHod() {
   );
 }
 
-export default authHod(SignUpHod);
+export default SignUpHod;
