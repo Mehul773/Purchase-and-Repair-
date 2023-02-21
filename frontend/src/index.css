@@ -205,3 +205,8 @@ input:focus::placeholder {
   font-size: small;
   text-align: left;
 }
+
+.table {
+  display: block;
+  margin: auto;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import HeaderDean from "../components/HeaderDean";
 
 const VerifyDean = () => {
   const navigate = useNavigate();
@@ -12,7 +13,12 @@ const VerifyDean = () => {
       .catch((err) => navigate("/login/dean"));
   });
 
-  return <>{<div>Hii</div>}</>;
+  return (
+    <>
+      <HeaderDean />
+      <div>Hii</div>
+    </>
+  );
 };
 
 export default VerifyDean;

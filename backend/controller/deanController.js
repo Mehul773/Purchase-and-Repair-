@@ -134,8 +134,37 @@ const makeActive = async (req, res) => {
   }
 };
 
+const logoutDean = async (req, res) => {
+  try {
+    res.clearCookie("jwtokendean", { path: "/" });
+    res.status(200).send("user logout");
+    console.log("logout finish ");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getDeanInfo = async (req, res) => {
+  try {
+    /*     console.log(req.user); */
+    const { _id, name, email } = await Dean.findById(req.user._id);
+    res.status(200).json({
+      _id: _id,
+      name: name,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 /* const generateToken = (id) => {  
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 }; */
 
-module.exports = { loginDean, registerDean, getAllPending, makeActive };
+module.exports = {
+  loginDean,
+  registerDean,
+  getAllPending,
+  makeActive,
+  getDeanInfo,
+  logoutDean,
+};

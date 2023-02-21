@@ -137,6 +137,30 @@ const makeActive = async (req, res) => {
   }
 };
 
+const logoutPc = async (req, res) => {
+  try {
+    res.clearCookie("jwtokenpc", { path: "/" });
+    res.status(200).send("user logout");
+    console.log("logout finish ");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getPcInfo = async (req, res) => {
+  try {
+    /*     console.log(req.user); */
+    const { _id, name, department, email } = await Pc.findById(req.user._id);
+    res.status(200).json({
+      _id: _id,
+      name: name,
+      department: department,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* exports.verifyUser = (req, res, next) => {
   Pc.findOne({
     token: req.params.token,
@@ -161,4 +185,11 @@ const makeActive = async (req, res) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 }; */
 
-module.exports = { loginPc, registerPc, getAllPending, makeActive };
+module.exports = {
+  loginPc,
+  registerPc,
+  getAllPending,
+  makeActive,
+  logoutPc,
+  getPcInfo,
+};

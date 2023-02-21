@@ -4,6 +4,7 @@ import DeanTable from "../components/DeanTable";
 import HodTable from "../components/HodTable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import HeaderAdmin from "../components/HeaderAdmin";
 
 function AdminDashboard() {
   const [pcs, setPc] = useState([]);
@@ -34,11 +35,12 @@ function AdminDashboard() {
 
   return (
     <>
+      <HeaderAdmin />
       <div className="min-h-screen">
         <div>
           <p className="text-color">Pending Purchase Controller requests</p>
         </div>
-        <div className="container">
+        <div className="container table">
           <div className="overflow-x-auto">
             <div>
               <div className="w-full">
@@ -68,7 +70,7 @@ function AdminDashboard() {
         <div>
           <p className="text-color">Pending Dean requests</p>
         </div>
-        <div className="container">
+        <div className="container table">
           <div className="overflow-x-auto">
             <div>
               <div className="w-full">
@@ -98,7 +100,7 @@ function AdminDashboard() {
         <div>
           <p className="text-color">Pending Hod requests</p>
         </div>
-        <div className="container">
+        <div className="container table">
           <div className="overflow-x-auto">
             <div>
               <div className="w-full">

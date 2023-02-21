@@ -137,8 +137,39 @@ const makeActive = async (req, res) => {
   }
 };
 
+const logoutHod = async (req, res) => {
+  try {
+    res.clearCookie("jwtokenhod", { path: "/" });
+    res.status(200).send("user logout");
+    console.log("logout finish ");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getHodInfo = async (req, res) => {
+  try {
+    /*     console.log(req.user); */
+    const { _id, name, department, email } = await Hod.findById(req.user._id);
+    res.status(200).json({
+      _id: _id,
+      name: name,
+      department: department,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 }; */
 
-module.exports = { loginHod, registerHod, getAllPending, makeActive };
+module.exports = {
+  loginHod,
+  registerHod,
+  getAllPending,
+  makeActive,
+  logoutHod,
+  getHodInfo,
+};

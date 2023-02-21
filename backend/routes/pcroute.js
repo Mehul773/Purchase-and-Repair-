@@ -8,6 +8,8 @@ const {
   registerPc,
   getAllPending,
   makeActive,
+  logoutPc,
+  getPcInfo,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -17,5 +19,7 @@ router.post("/status", makeActive);
 router.get("/dashboard", protectPc, (req, res) => {
   res.json({ message: "Authorized" });
 });
+router.get("/logout", logoutPc);
+router.get("/getme", protectPc, getPcInfo);
 
 module.exports = router;

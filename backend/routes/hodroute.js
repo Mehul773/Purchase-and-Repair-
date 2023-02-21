@@ -8,6 +8,8 @@ const {
   registerHod,
   getAllPending,
   makeActive,
+  logoutHod,
+  getHodInfo,
 } = require("../controller/hodController");
 
 router.post("/signup", registerHod);
@@ -17,5 +19,6 @@ router.post("/status", makeActive);
 router.get("/dashboard", protectHod, (req, res) => {
   res.json({ message: "Authorized" });
 });
-
+router.get("/logout", logoutHod);
+router.get("/getme", protectHod, getHodInfo);
 module.exports = router;

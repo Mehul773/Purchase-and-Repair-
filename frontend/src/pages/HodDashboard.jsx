@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import HeaderHod from "../components/HeaderHod";
 
 const VerifyHod = () => {
   const navigate = useNavigate();
@@ -12,7 +13,12 @@ const VerifyHod = () => {
       .catch((err) => navigate("/login/hod"));
   });
 
-  return <>{<div>Hii</div>}</>;
+  return (
+    <>
+      <HeaderHod />
+      <div>Hii</div>
+    </>
+  );
 };
 
 export default VerifyHod;

@@ -8,6 +8,8 @@ const {
   registerDean,
   getAllPending,
   makeActive,
+  logoutDean,
+  getDeanInfo,
 } = require("../controller/deanController");
 
 router.post("/login", loginDean);
@@ -17,5 +19,6 @@ router.post("/status", makeActive);
 router.get("/dashboard", protectDean, (req, res) => {
   res.json({ message: "Authorized" });
 });
-
+router.get("/logout", logoutDean);
+router.get("/getme", protectDean, getDeanInfo);
 module.exports = router;

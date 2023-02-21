@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import HeaderPc from "../components/HeaderPc";
 
 const VerifyPc = () => {
   const navigate = useNavigate();
@@ -12,7 +13,12 @@ const VerifyPc = () => {
       .catch((err) => navigate("/login/pc"));
   });
 
-  return <>{<div>Hii</div>}</>;
+  return (
+    <>
+      <HeaderPc />
+      <div>Hii</div>
+    </>
+  );
 };
 
 export default VerifyPc;

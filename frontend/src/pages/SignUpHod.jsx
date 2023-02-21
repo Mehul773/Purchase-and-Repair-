@@ -139,7 +139,7 @@ function SignUpHod() {
           </div>
         </div>
         <div className="main-right">
-          <img src={login} className="login-img" srcSet="" />
+          <img src={login} className="login-img" srcSet="" alt="login" />
         </div>
       </div>
     </div>
