@@ -16,6 +16,12 @@ function SignUpHod() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/hod/dashboard", { withCredentials: true })
+      .then((response) => navigate("/hod/dashboard"));
+  });
+
   const handleSingup = async (event) => {
     event.preventDefault();
     if (

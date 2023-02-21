@@ -15,6 +15,12 @@ function SignUpDean() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/dean/dashboard", { withCredentials: true })
+      .then((response) => navigate("/dean/dashboard"));
+  });
+
   const handleSingup = async (event) => {
     event.preventDefault();
     if (

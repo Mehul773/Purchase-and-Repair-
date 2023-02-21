@@ -16,6 +16,12 @@ function SignUpPc() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
+      .then((response) => navigate("/pc/dashboard"));
+  });
+
   const handleSingup = async (event) => {
     event.preventDefault();
     if (
