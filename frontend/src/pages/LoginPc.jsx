@@ -13,6 +13,12 @@ function LoginPc() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
+      .then((response) => navigate("/pc/dashboard"));
+  });
+
   const handleLogin = async (event) => {
     event.preventDefault();
     if (email === "" || password === "") {

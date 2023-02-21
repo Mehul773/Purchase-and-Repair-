@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import login from "../Asset/Login.png";
@@ -12,6 +12,12 @@ function LoginAdmin() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/admin/dashboard", { withCredentials: true })
+      .then((response) => navigate("/admin/dashboard"));
+  });
 
   const handleLogin = async (event) => {
     event.preventDefault();

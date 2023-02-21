@@ -13,6 +13,12 @@ function LoginHOD() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/hod/dashboard", { withCredentials: true })
+      .then((response) => navigate("/hod/dashboard"));
+  });
+
   const handleLogin = async (event) => {
     event.preventDefault();
     if (email === "" || password === "") {

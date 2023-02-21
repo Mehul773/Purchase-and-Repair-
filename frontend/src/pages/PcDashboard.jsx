@@ -1,20 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const VerifyPc = () => {
-  const [verify, setverify] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
-      .then((response) => {
-        setverify(true);
-      })
-      .catch((err) => console.log(err));
+      .then((response) => {})
+      .catch((err) => navigate("/login/pc"));
   });
 
-  return <>{verify ? <div>Hii</div> : <div>Page does not exist</div>}</>;
+  return <>{<div>Hii</div>}</>;
 };
 
 export default VerifyPc;
