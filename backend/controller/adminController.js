@@ -85,7 +85,6 @@ const logoutAdmin = async (req, res) => {
   try {
     res.clearCookie("jwtokenadmin", { path: "/" });
     res.status(200).send("user logout");
-    console.log("logout finish ");
   } catch (error) {
     console.log(error);
   }
@@ -94,7 +93,7 @@ const logoutAdmin = async (req, res) => {
 const getAdminInfo = async (req, res) => {
   try {
     /*     console.log(req.user); */
-    const { _id, name, email } = await Dean.findById(req.user._id);
+    const { _id, name, email } = await Admin.findById(req.user._id);
     res.status(200).json({
       _id: _id,
       name: name,

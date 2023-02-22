@@ -10,7 +10,7 @@ const VerifyPc = () => {
     axios
       .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
       .then((response) => {})
-      .catch((err) => navigate("/login/pc"));
+      .catch((err) => navigate("/login/pc")); 
   });
 
   return (

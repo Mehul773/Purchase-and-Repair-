@@ -138,7 +138,6 @@ const logoutDean = async (req, res) => {
   try {
     res.clearCookie("jwtokendean", { path: "/" });
     res.status(200).send("user logout");
-    console.log("logout finish ");
   } catch (error) {
     console.log(error);
   }

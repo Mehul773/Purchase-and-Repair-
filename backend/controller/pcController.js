@@ -141,7 +141,6 @@ const logoutPc = async (req, res) => {
   try {
     res.clearCookie("jwtokenpc", { path: "/" });
     res.status(200).send("user logout");
-    console.log("logout finish ");
   } catch (error) {
     console.log(error);
   }
