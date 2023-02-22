@@ -160,6 +160,25 @@ const getHodInfo = async (req, res) => {
   }
 };
 
+const deleteHod = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const hod = await Hod.findOne({ email });
+
+    if (!hod) {
+      res.status(400);
+      console.log("Hod not found to be deleted");
+    }
+    nodemailer.sendDeclineEmail(hod.name, hod.email, hod.token);
+    await hod.remove();
+
+    return res.status(404).json({ message: "Hod deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 }; */
@@ -171,4 +190,5 @@ module.exports = {
   makeActive,
   logoutHod,
   getHodInfo,
+  deleteHod,
 };

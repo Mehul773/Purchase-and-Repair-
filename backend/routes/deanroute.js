@@ -10,6 +10,7 @@ const {
   makeActive,
   logoutDean,
   getDeanInfo,
+  deleteDean,
 } = require("../controller/deanController");
 
 router.post("/login", loginDean);
@@ -21,4 +22,6 @@ router.get("/dashboard", protectDean, (req, res) => {
 });
 router.get("/logout", logoutDean);
 router.get("/getme", protectDean, getDeanInfo);
+router.post("/delete", deleteDean);
+
 module.exports = router;

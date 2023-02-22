@@ -30,7 +30,6 @@ module.exports.sendConfirmationEmail = (name, email, token) => {
 };
 
 module.exports.sendActivationEmail = (name, email, token) => {
-  console.log("Inside sendconfirm");
   transport
     .sendMail({
       from: user,
@@ -40,6 +39,21 @@ module.exports.sendActivationEmail = (name, email, token) => {
           <h2>Hello ${name}</h2>
           <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
           <a href=http://localhost:3000/login/pc> Click here</a>
+          </div>`,
+    })
+    .catch((err) => console.log(err));
+};
+
+module.exports.sendDeclineEmail = (name, email, token) => {
+  console.log("Inside decline");
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: "Signup request",
+      html: `<h1>Email Confirmation Failed</h1>
+          <h2>Request from ${email} is declined</h2>
+
           </div>`,
     })
     .catch((err) => console.log(err));

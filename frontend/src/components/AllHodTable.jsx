@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-function HodTable(hod) {
+function AllHodTable(hod) {
   const Changestatus = async (event) => {
     event.preventDefault();
     console.log("click");
@@ -47,29 +47,7 @@ function HodTable(hod) {
             {hod.hod.status}
           </span>
         </td>
-        <td className="py-3 px-6">
-          <div>{hod.hod.createdAt}</div>
-        </td>
         <td className="py-3 px-6 text-center flex">
-          <div
-            className="w-4 mr-9 transform hover:text-green-500 hover:scale-110"
-            onClick={Changestatus}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Accept
-          </div>
           <div
             className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
             onClick={HandleDelete}
@@ -87,7 +65,7 @@ function HodTable(hod) {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            Decline
+            Delete
           </div>
         </td>
       </tr>
@@ -95,4 +73,4 @@ function HodTable(hod) {
   );
 }
 
-export default HodTable;
+export default AllHodTable;

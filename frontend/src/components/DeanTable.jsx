@@ -11,9 +11,23 @@ function DeanTable(dean) {
         status: dean.dean.status,
       })
       .then((res) => {
-        window.location.reload("user/admin/dashboard");
+        window.location.reload("/user/admin/dashboard");
       })
       .catch((err) => console.log(err));
+  };
+
+  const HandleDelete = async (event) => {
+    event.preventDefault();
+    await axios
+      .post("http://localhost:5000/dean/delete", {
+        email: dean.dean.email,
+      })
+      .then((res) => {
+        window.location.reload("user/admin/dashboard");
+      })
+      .catch((err) => {
+        window.location.reload("user/admin/dashboard");
+      });
   };
 
   return (
@@ -30,9 +44,12 @@ function DeanTable(dean) {
             {dean.dean.status}
           </span>
         </td>
-        <td className="py-3 px-6 text-center">
+        <td className="py-3 px-6">
+          <div>{dean.dean.createdAt}</div>
+        </td>
+        <td className="py-3 px-6 text-center flex">
           <div
-            className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110"
+            className="w-4 mr-9 transform hover:text-green-500 hover:scale-110"
             onClick={Changestatus}
           >
             <svg
@@ -48,6 +65,26 @@ function DeanTable(dean) {
                 d="M5 13l4 4L19 7"
               />
             </svg>
+            Accept
+          </div>
+          <div
+            className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+            onClick={HandleDelete}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            Decline
           </div>
         </td>
       </tr>

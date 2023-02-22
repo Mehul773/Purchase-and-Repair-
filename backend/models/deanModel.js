@@ -1,37 +1,44 @@
-  const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
-const deanSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, "Please add a name"],
-    },
+var createdAt = function () {
+  var d = new Date();
+  var formattedDate = moment(d).format("MM-DD-YYYY, h:mm:ss a");
+  return formattedDate;
+};
 
-    email: {
-      type: String,
-      required: [true, "Please add a email"],
-      unique: true,
-    },
-
-    password: {
-      type: String,
-      required: [true, "Please add a password"],
-    },
-
-    status: {
-      type: String,
-      require: true,
-    },
-
-    token: {
-      type: String,
-    },
+const deanSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please add a name"],
   },
-  {
-    timestamp: true,
-  }
-);
+
+  email: {
+    type: String,
+    required: [true, "Please add a email"],
+    unique: true,
+  },
+
+  password: {
+    type: String,
+    required: [true, "Please add a password"],
+  },
+
+  status: {
+    type: String,
+    require: true,
+  },
+
+  token: {
+    type: String,
+  },
+
+  createdAt: {
+    type: String,
+    default: createdAt,
+  },
+});
 
 deanSchema.methods.generateAuthToken = async function () {
   try {

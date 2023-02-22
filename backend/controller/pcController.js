@@ -160,6 +160,25 @@ const getPcInfo = async (req, res) => {
   }
 };
 
+const deletePc = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const pc = await Pc.findOne({ email });
+
+    if (!pc) {
+      res.status(400);
+      console.log("Pc not found to be deleted");
+    }
+    nodemailer.sendDeclineEmail(pc.name, pc.email, pc.token);
+    await pc.remove();
+
+    return res.status(404).json({ message: "Pc deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 /* exports.verifyUser = (req, res, next) => {
   Pc.findOne({
     token: req.params.token,
@@ -191,4 +210,5 @@ module.exports = {
   makeActive,
   logoutPc,
   getPcInfo,
+  deletePc,
 };

@@ -155,6 +155,25 @@ const getDeanInfo = async (req, res) => {
     console.log(error);
   }
 };
+
+const deleteDean = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const dean = await Dean.findOne({ email });
+
+    if (!dean) {
+      res.status(400);
+      console.log("Dean not found to be deleted");
+    }
+    nodemailer.sendDeclineEmail(dean.name, dean.email, dean.token);
+    await dean.remove();
+
+    return res.status(404).json({ message: "Dean deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 /* const generateToken = (id) => {  
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 }; */
@@ -166,4 +185,5 @@ module.exports = {
   makeActive,
   getDeanInfo,
   logoutDean,
+  deleteDean,
 };

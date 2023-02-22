@@ -10,6 +10,7 @@ const {
   makeActive,
   logoutHod,
   getHodInfo,
+  deleteHod,
 } = require("../controller/hodController");
 
 router.post("/signup", registerHod);
@@ -21,4 +22,6 @@ router.get("/dashboard", protectHod, (req, res) => {
 });
 router.get("/logout", logoutHod);
 router.get("/getme", protectHod, getHodInfo);
+router.post("/delete", deleteHod);
+
 module.exports = router;

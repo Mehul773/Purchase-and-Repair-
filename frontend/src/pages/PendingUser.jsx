@@ -51,6 +51,7 @@ function PendingUser() {
                         <th className="py-3 px-6 text-center">Email</th>
                         <th className="py-3 px-6 text-center">Department</th>
                         <th className="py-3 px-6 text-center">Status</th>
+                        <th className="py-3 px-6 text-center">Date & Time</th>
                         <th className="py-3 px-6 text-center">Actions</th>
                       </tr>
                     </thead>
@@ -77,6 +78,7 @@ function PendingUser() {
                         <th className="py-3 px-6 text-center">User Name</th>
                         <th className="py-3 px-6 text-center">Email</th>
                         <th className="py-3 px-6 text-center">Status</th>
+                        <th className="py-3 px-6 text-center">Date & Time</th>
                         <th className="py-3 px-6 text-center">Actions</th>
                       </tr>
                     </thead>
@@ -104,6 +106,7 @@ function PendingUser() {
                         <th className="py-3 px-6 text-center">Email</th>
                         <th className="py-3 px-6 text-center">Department</th>
                         <th className="py-3 px-6 text-center">Status</th>
+                        <th className="py-3 px-6 text-center">Date & Time</th>
                         <th className="py-3 px-6 text-center">Actions</th>
                       </tr>
                     </thead>

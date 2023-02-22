@@ -10,6 +10,7 @@ const {
   makeActive,
   logoutPc,
   getPcInfo,
+  deletePc,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -21,5 +22,6 @@ router.get("/dashboard", protectPc, (req, res) => {
 });
 router.get("/logout", logoutPc);
 router.get("/getme", protectPc, getPcInfo);
+router.post("/delete", deletePc);
 
 module.exports = router;

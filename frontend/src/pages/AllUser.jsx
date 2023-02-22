@@ -5,6 +5,9 @@ import HodTable from "../components/HodTable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HeaderAdmin from "../components/HeaderAdmin";
+import AllDeanTable from "../components/AllDeanTable";
+import AllHodTable from "../components/AllHodTable";
+import AllPcTable from "../components/AllPcTable";
 
 function AllUser() {
   const [pcs, setPc] = useState([]);
@@ -55,7 +58,7 @@ function AllUser() {
                       </tr>
                     </thead>
                     {pcs.map((pc) => (
-                      <PcTable pc={pc} />
+                      <AllPcTable pc={pc} />
                     ))}
                   </table>
                 </div>
@@ -81,7 +84,7 @@ function AllUser() {
                       </tr>
                     </thead>
                     {dean.map((dean) => (
-                      <DeanTable dean={dean} />
+                      <AllDeanTable dean={dean} />
                     ))}
                   </table>
                 </div>
@@ -108,7 +111,7 @@ function AllUser() {
                       </tr>
                     </thead>
                     {hod.map((hod) => (
-                      <HodTable hod={hod} />
+                      <AllHodTable hod={hod} />
                     ))}
                   </table>
                 </div>
