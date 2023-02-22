@@ -31,6 +31,20 @@ code {
   display: flex;
   align-items: center;
 }
+ul .left-li-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-username{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-icon {
+  height: 30px;
+  margin-right: 7px;
+}
 #pr {
   font-size: x-large;
   font-weight: 600;
@@ -38,10 +52,11 @@ code {
 }
 .nav-links {
   list-style: none;
+  display: flex;
+  align-items: center;
 }
 .nav-links li {
-  display: inline-block;
-  padding: 0px 20px;
+    padding: 0px 20px;
 }
 .nav-links li a {
   text-decoration: none;
@@ -95,6 +110,7 @@ code {
 .left-text {
   text-align: left;
 }
+
 #circle {
   margin-top: 30px;
   height: 550px;
@@ -125,7 +141,7 @@ code {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding: 30px 100px 30px 30px;
+  padding: 30px 100px 30px 100px;
   align-items: center;
 }
 .choose-actor-img {

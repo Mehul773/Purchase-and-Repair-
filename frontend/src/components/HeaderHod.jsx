@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import logo from "../Asset/logo3.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle  } from "@fortawesome/free-solid-svg-icons";
+
 import axios from "axios";
 
 function HeaderHod() {
@@ -44,17 +47,22 @@ function HeaderHod() {
           </div>
         </Link>
 
-        <div id="right">
+        <div className="right">
           <ul className="nav-links">
-            <li>
-              {name}
-              {department}
-            </li>
-            <li>
-              <button className="btn" onClick={handleLogout}>
-                Logout
-              </button>
-            </li>
+            <div className="left-li-div">
+              <li className="icon-username">
+                <div><FontAwesomeIcon icon={faUserCircle} className="user-icon" /></div>
+                 <div>{name}</div>
+              </li>
+              <li>{department}</li>
+            </div>
+            <div>
+              <li>
+                <button className="btn" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </div>
           </ul>
         </div>
       </header>
