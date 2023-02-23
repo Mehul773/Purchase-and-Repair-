@@ -226,3 +226,76 @@ input:focus::placeholder {
   display: block;
   margin: auto;
 }
+
+
+.icon:hover{
+  color: #14c540;
+}
+
+/* ----------------------------------------------------------------------------- */
+/* sidebar  */
+
+.navbar{
+  background-color: aliceblue;
+  height: 65px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 0px;
+}
+.menu-bars
+{
+  margin-left: 2rem;
+  font-size: 2rem; 
+}
+.nav-menu{
+  background-color: #56dca8;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 360ms;
+}
+.nav-menu.active{
+  left:0;
+  transition: 350px;
+}
+.nav-text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  height: 60px;
+}
+.nav-text .sidebar-text{
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+.nav-text .sidebar-text:hover{
+  background-color: antiquewhite;
+  border-radius: 10px;
+ 
+}
+.nav-menu-items{
+  width: 100%;
+
+}
+.navbar-toggle{
+  background-color: #56dca8;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+span{
+  margin-left: 16px;
+}
