@@ -43,7 +43,7 @@ function AllPcTable(pc) {
           <div>{pc.pc.department}</div>
         </td>
         <td className="py-3 px-6">
-          <span className="text-red-500 rounded-full text-ls">
+          <span className="text-green-500 rounded-full text-ls">
             {pc.pc.status}
           </span>
         </td>

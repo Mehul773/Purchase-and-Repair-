@@ -43,7 +43,7 @@ function AllHodTable(hod) {
           <div>{hod.hod.department}</div>
         </td>
         <td className="py-3 px-6">
-          <span className="text-red-500 rounded-full text-ls">
+          <span className="text-green-500 rounded-full text-ls">
             {hod.hod.status}
           </span>
         </td>
