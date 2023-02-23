@@ -37,7 +37,9 @@ function PendingUser() {
     <>
       <div className="min-h-screen">
         <div>
-          <p className="text-color">Pending Purchase Coordinator requests</p>
+          <h2 className="text-color headings">
+            Pending Purchase Coordinator requests
+          </h2>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">
@@ -65,7 +67,7 @@ function PendingUser() {
           </div>
         </div>
         <div>
-          <p className="text-color">Pending Dean requests</p>
+          <p className="text-color headings">Pending Dean requests</p>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">
@@ -92,7 +94,7 @@ function PendingUser() {
           </div>
         </div>
         <div>
-          <p className="text-color">Pending Hod requests</p>
+          <p className="text-color headings">Pending Hod requests</p>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">

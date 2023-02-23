@@ -36,7 +36,7 @@ ul .left-li-div {
   flex-direction: column;
 }
 
-.icon-username{
+.icon-username {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,7 +56,7 @@ ul .left-li-div {
   align-items: center;
 }
 .nav-links li {
-    padding: 0px 20px;
+  padding: 0px 20px;
 }
 .nav-links li a {
   text-decoration: none;
@@ -227,15 +227,28 @@ input:focus::placeholder {
   margin: auto;
 }
 
+.table-icons {
+  width: 30px;
+  display: block;
+  margin: auto;
+}
 
-.icon:hover{
+.icon:hover {
   color: #14c540;
+}
+
+.headings {
+  display: inline-block;
+  padding: 3px 15px;
+  font-size: 32px;
+  border: 2px solid;
+  border-radius: 6px;
 }
 
 /* ----------------------------------------------------------------------------- */
 /* sidebar  */
 
-.navbar{
+.navbar {
   background-color: aliceblue;
   height: 65px;
   display: flex;
@@ -243,12 +256,11 @@ input:focus::placeholder {
   align-items: center;
   width: 0px;
 }
-.menu-bars
-{
+.menu-bars {
   margin-left: 2rem;
-  font-size: 2rem; 
+  font-size: 2rem;
 }
-.nav-menu{
+.nav-menu {
   background-color: #56dca8;
   width: 250px;
   height: 100vh;
@@ -259,18 +271,18 @@ input:focus::placeholder {
   left: -100%;
   transition: 360ms;
 }
-.nav-menu.active{
-  left:0;
+.nav-menu.active {
+  left: 0;
   transition: 350px;
 }
-.nav-text{
+.nav-text {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px 0px 8px 16px;
   height: 60px;
 }
-.nav-text .sidebar-text{
+.sidebar-text {
   font-size: 18px;
   width: 100%;
   height: 100%;
@@ -279,16 +291,14 @@ input:focus::placeholder {
   padding: 0 16px;
   border-radius: 4px;
 }
-.nav-text .sidebar-text:hover{
+.sidebar-text:hover {
   background-color: antiquewhite;
-  border-radius: 10px;
- 
+  border-radius: 10px 0px 0px 10px;
 }
-.nav-menu-items{
+.nav-menu-items {
   width: 100%;
-
 }
-.navbar-toggle{
+.navbar-toggle {
   background-color: #56dca8;
   width: 100%;
   height: 80px;
@@ -296,6 +306,9 @@ input:focus::placeholder {
   justify-content: start;
   align-items: center;
 }
-span{
+span {
   margin-left: 16px;
+}
+.icon-bar {
+  height: 20px;
 }

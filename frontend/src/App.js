@@ -14,9 +14,6 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PcDashboard from "./pages/PcDashboard";
 import DeanDashboard from "./pages/DeanDashboard";
 import HodDashboard from "./pages/HodDashboard";
-import AdminActiveUser from "./pages/AdminActiveUser";
-import AdminPendingUser from "./pages/AdminPendingUser";
-import AdminAddDept from "./pages/AdminAddDept";
 
 function App() {
   return (
@@ -46,10 +43,6 @@ function App() {
             <Route path="/pc/dashboard" element={<PcDashboard />}></Route>
             <Route path="/dean/dashboard" element={<DeanDashboard />}></Route>
             <Route path="/hod/dashboard" element={<HodDashboard />}></Route>
-
-            <Route path="/admin/dashboard/active" element={< AdminActiveUser/>}></Route>
-            <Route path="/admin/dashboard/pending" element={< AdminPendingUser/>}></Route>
-            <Route path="/admin/dashboard/addDept" element={<AdminAddDept />}></Route>
           </Routes>
         </div>
       </Router>

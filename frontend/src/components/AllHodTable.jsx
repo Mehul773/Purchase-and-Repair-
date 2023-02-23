@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 function AllHodTable(hod) {
   const Changestatus = async (event) => {
@@ -47,24 +48,12 @@ function AllHodTable(hod) {
             {hod.hod.status}
           </span>
         </td>
-        <td className="py-3 px-6 text-center flex">
+        <td className="py-3 px-6 text-center" style={{ cursor: "pointer" }}>
           <div
-            className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+            className="transform hover:text-red-500 hover:scale-110"
             onClick={HandleDelete}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
+            <RiDeleteBin6Line className="table-icons"></RiDeleteBin6Line>
             Delete
           </div>
         </td>

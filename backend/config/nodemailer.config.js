@@ -50,9 +50,9 @@ module.exports.sendDeclineEmail = (name, email, token) => {
     .sendMail({
       from: user,
       to: email,
-      subject: "Signup request",
-      html: `<h1>Email Confirmation Failed</h1>
-          <h2>Request from ${email} is declined</h2>
+      subject: "About account suspendation",
+      html: `<h1>Now you have to sign up again</h1>
+          <h2>User ${email} is deleted</h2>
 
           </div>`,
     })

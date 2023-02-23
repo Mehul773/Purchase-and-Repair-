@@ -40,7 +40,7 @@ function AllUser() {
     <>
       <div className="min-h-screen">
         <div>
-          <p className="text-color">Purchase Coordinators</p>
+          <p className="text-color headings">Active Purchase Coordinators</p>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">
@@ -67,7 +67,7 @@ function AllUser() {
           </div>
         </div>
         <div>
-          <p className="text-color">Deans</p>
+          <p className="text-color headings">Active Deans</p>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">
@@ -93,7 +93,7 @@ function AllUser() {
           </div>
         </div>
         <div>
-          <p className="text-color">Hods</p>
+          <p className="text-color headings">Active Hods</p>
         </div>
         <div className="container table">
           <div className="overflow-x-auto">
