@@ -40,7 +40,7 @@ function AllDeanTable(dean) {
           <div>{dean.dean.email}</div>
         </td>
         <td className="py-3 px-6">
-          <span className="text-red-500 rounded-full text-ls">
+          <span className="text-green-500 rounded-full text-ls">
             {dean.dean.status}
           </span>
         </td>
