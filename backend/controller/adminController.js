@@ -92,7 +92,6 @@ const logoutAdmin = async (req, res) => {
 
 const getAdminInfo = async (req, res) => {
   try {
-    /*     console.log(req.user); */
     const { _id, name, email } = await Admin.findById(req.user._id);
     res.status(200).json({
       _id: _id,
@@ -102,8 +101,5 @@ const getAdminInfo = async (req, res) => {
     console.log(error);
   }
 };
-/* const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-}; */
 
 module.exports = { loginAdmin, registerAdmin, logoutAdmin, getAdminInfo };

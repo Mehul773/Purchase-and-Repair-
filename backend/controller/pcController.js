@@ -148,7 +148,6 @@ const logoutPc = async (req, res) => {
 
 const getPcInfo = async (req, res) => {
   try {
-    /*     console.log(req.user); */
     const { _id, name, department, email } = await Pc.findById(req.user._id);
     res.status(200).json({
       _id: _id,
@@ -179,29 +178,7 @@ const deletePc = async (req, res) => {
   }
 };
 
-/* exports.verifyUser = (req, res, next) => {
-  Pc.findOne({
-    token: req.params.token,
-  })
-    .then((user) => {
-      console.log(user);
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
-      user.status = "Active";
-      user.save((err) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-      });
-    })
-    .catch((e) => console.log("error", e));
-}; */
 
-/* const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
-}; */
 
 module.exports = {
   loginPc,
