@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const Pc = require("../models/pcModel");
 const nodemailer = require("../config/nodemailer.config");
 const Department = require("../models/departmentModel");
+const Supplier = require("../models/supplierModel");
 
 const loginPc = async (req, res) => {
   try {
@@ -190,6 +191,33 @@ const getdept = async (req, res) => {
   }
 };
 
+const addSupplier = async (req, res) => {
+  try {
+    const { supplier, address, contact } = req.body;
+
+    await Supplier.create({
+      supplier,
+      address,
+      contact,
+    });
+
+    res.json({ message: `Supplier added + ${supplier}` });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getSupplier = async (req, res) => {
+  try {
+    const supp = await Supplier.find();
+    res.json({
+      supp: supp,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   loginPc,
   registerPc,
@@ -199,4 +227,6 @@ module.exports = {
   getPcInfo,
   deletePc,
   getdept,
+  addSupplier,
+  getSupplier,
 };
