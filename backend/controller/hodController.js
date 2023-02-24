@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Hod = require("../models/hodModel");
 const nodemailer = require("../config/nodemailer.config");
+const Department = require("../models/departmentModel");
 
 const loginHod = async (req, res) => {
   try {
@@ -179,6 +180,17 @@ const deleteHod = async (req, res) => {
   }
 };
 
+const getdept = async (req, res) => {
+  try {
+    const depts = await Department.find();
+    res.json({
+      depts: depts,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   loginHod,
   registerHod,
@@ -187,4 +199,5 @@ module.exports = {
   logoutHod,
   getHodInfo,
   deleteHod,
+  getdept,
 };

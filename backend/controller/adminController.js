@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/adminModel");
+const Department = require("../models/departmentModel");
 
 const loginAdmin = async (req, res) => {
   try {
@@ -102,4 +103,36 @@ const getAdminInfo = async (req, res) => {
   }
 };
 
-module.exports = { loginAdmin, registerAdmin, logoutAdmin, getAdminInfo };
+const addDepartment = async (req, res) => {
+  try {
+    const { department } = req.body;
+
+    await Department.create({
+      department,
+    });
+
+    res.json({ message: `Department added + ${department}` });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getdept = async (req, res) => {
+  try {
+    const depts = await Department.find();
+    res.json({
+      depts: depts,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  loginAdmin,
+  registerAdmin,
+  logoutAdmin,
+  getAdminInfo,
+  addDepartment,
+  getdept,
+};

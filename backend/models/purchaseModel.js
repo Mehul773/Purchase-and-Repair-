@@ -18,7 +18,6 @@ const purchase = mongoose.Schema({
   Address: String,
   Contact: String,
   Department: String,
-  Purchase_or_Recurring: "Purchase",
-}); 
+});
 
 module.exports = mongoose.model("Purchase", purchase);

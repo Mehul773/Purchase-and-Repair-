@@ -12,7 +12,6 @@ const recurring = mongoose.Schema({
   Year: String,
   Yearly_expense: String,
   Department: String,
-  Purchase_or_Recurring: "Recurring",
 });
 
 module.exports = mongoose.model("Recurring", recurring);

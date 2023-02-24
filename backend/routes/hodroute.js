@@ -11,6 +11,7 @@ const {
   logoutHod,
   getHodInfo,
   deleteHod,
+  getdept,
 } = require("../controller/hodController");
 
 router.post("/signup", registerHod);
@@ -23,5 +24,6 @@ router.get("/dashboard", protectHod, (req, res) => {
 router.get("/logout", logoutHod);
 router.get("/getme", protectHod, getHodInfo);
 router.post("/delete", deleteHod);
+router.get("/getdept", getdept);
 
 module.exports = router;

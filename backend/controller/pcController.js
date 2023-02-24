@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Pc = require("../models/pcModel");
 const nodemailer = require("../config/nodemailer.config");
+const Department = require("../models/departmentModel");
 
 const loginPc = async (req, res) => {
   try {
@@ -178,7 +179,16 @@ const deletePc = async (req, res) => {
   }
 };
 
-
+const getdept = async (req, res) => {
+  try {
+    const depts = await Department.find();
+    res.json({
+      depts: depts,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   loginPc,
@@ -188,4 +198,5 @@ module.exports = {
   logoutPc,
   getPcInfo,
   deletePc,
+  getdept,
 };

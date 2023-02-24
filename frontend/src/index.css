@@ -70,6 +70,10 @@ ul .left-li-div {
   font-size: medium;
   border: 1px solid #04151f;
 }
+.btn:hover {
+  background-color: #29cb8d;
+}
+
 .workspace {
   /* border: 2px solid red; */
   display: flex;
@@ -91,6 +95,9 @@ ul .left-li-div {
   text-align: center;
   margin: 20px;
   height: 270px;
+}
+.inner-rect:hover {
+  background-color: #18232a;
 }
 .inner-rect p {
   color: white;
@@ -175,6 +182,22 @@ input:-webkit-autofill:active {
   width: 320px;
 }
 
+.department-textf {
+  background-color: #56dca8;
+  text-align: center;
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.adddept-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .dropdown {
   background-color: #56dca8;
   text-align: center;
@@ -213,6 +236,9 @@ input:focus::placeholder {
 #submit-btn {
   background-color: #04151f;
   color: white;
+}
+#submit-btn:hover {
+  background-color: #18232a;
 }
 .submit-text {
   color: #ffffff;
@@ -311,4 +337,17 @@ span {
 }
 .icon-bar {
   height: 20px;
+}
+/* ---------------------------------------------------------------------------------------------------- */
+/* admin dashboard  */
+.dept-box {
+  background-color: #818a8f;
+  border: 2px solid aliceblue;
+  border-radius: 10px;
+  padding: 10px;
+}
+.dept-box-inner {
+  background-color: black;
+  padding: 30px;
+  border-radius: 10px;
 }

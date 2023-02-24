@@ -13,13 +13,20 @@ function SignUpPc() {
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [department, setDepartment] = useState("");
+  const [all, setAll] = useState([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     axios
       .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
       .then((response) => navigate("/pc/dashboard"));
+  }); */
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getdept")
+      .then((response) => setAll(response.data.depts));
   });
 
   const handleSingup = async (event) => {
@@ -116,15 +123,17 @@ function SignUpPc() {
                 value={department}
                 onChange={(event) => {
                   setDepartment(event.target.value);
-                  console.log(event.target.value);
                 }}
               >
-                <option>Computer engineering</option>
+                {/* <option>Computer engineering</option>
                 <option>Information technology</option>
                 <option>Chemical engineering</option>
                 <option>Civil engineering</option>
                 <option>Mechanical engineering</option>
-                <option>Electronics & Communication engineering</option>
+                <option>Electronics & Communication engineering</option> */}
+                {all.map((dept) => (
+                  <option>{dept.department}</option>
+                ))}
               </select>
 
               <button

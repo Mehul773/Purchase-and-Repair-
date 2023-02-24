@@ -8,6 +8,8 @@ const {
   registerAdmin,
   logoutAdmin,
   getAdminInfo,
+  addDepartment,
+  getdept,
 } = require("../controller/adminController");
 
 router.post("/login", loginAdmin);
@@ -17,5 +19,7 @@ router.get("/dashboard", protectAdmin, (req, res) => {
 });
 router.get("/logout", logoutAdmin);
 router.get("/getme", protectAdmin, getAdminInfo);
+router.post("/adddept", protectAdmin, addDepartment);
+router.get("/getdept", getdept);
 
 module.exports = router;

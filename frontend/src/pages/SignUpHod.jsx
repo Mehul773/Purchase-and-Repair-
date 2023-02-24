@@ -13,13 +13,14 @@ function SignUpHod() {
   const [username, setUsername] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [department, setDepartment] = useState("");
+  const [all, setAll] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/hod/dashboard", { withCredentials: true })
-      .then((response) => navigate("/hod/dashboard"));
+      .get("http://localhost:5000/hod/getdept")
+      .then((response) => setAll(response.data.depts));
   });
 
   const handleSingup = async (event) => {
@@ -119,12 +120,9 @@ function SignUpHod() {
                   console.log(event.target.value);
                 }}
               >
-                <option>Computer engineering</option>
-                <option>Information technology</option>
-                <option>Chemical engineering</option>
-                <option>Civil engineering</option>
-                <option>Mechanical engineering</option>
-                <option>Electronics & Communication engineering</option>
+                {all.map((dept) => (
+                  <option>{dept.department}</option>
+                ))}
               </select>
 
               <button

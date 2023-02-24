@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import HeaderAdmin from "../components/HeaderAdmin";
 import PendingUser from "./PendingUser";
 import AllUser from "./AllUser";
@@ -14,7 +15,32 @@ function AdminDashboard() {
   const [sidebar, setSidebar] = useState(false);
   const [active, setActive] = useState(false);
   const [pending, setPending] = useState(true);
+  const [dept, setDept] = useState(false);
 
+  const [value, setValue] = useState("");
+  const [all, setAll] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/admin/getdept", { withCredentials: true })
+      .then((response) => setAll(response.data.depts));
+  });
+
+  const handleDept = async (event) => {
+    event.preventDefault();
+    await axios
+      .post(
+        "http://localhost:5000/admin/adddept",
+        {
+          department: value,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {})
+      .catch((error) => {
+        console.log("Error is " + error);
+      });
+  };
   const showSidebar = () => setSidebar(!sidebar);
   return (
     <>
@@ -37,6 +63,7 @@ function AdminDashboard() {
               onClick={() => {
                 setActive(true);
                 setPending(false);
+                setDept(false);
               }}
             >
               <Link to="#" className="sidebar-text">
@@ -49,6 +76,7 @@ function AdminDashboard() {
               onClick={() => {
                 setActive(false);
                 setPending(true);
+                setDept(false);
               }}
             >
               <Link to="#" className="sidebar-text">
@@ -56,17 +84,68 @@ function AdminDashboard() {
                 <span>Pending users</span>
               </Link>
             </li>
-{/*             <li className="nav-text">
+            <li
+              className="nav-text"
+              onClick={() => {
+                setActive(false);
+                setPending(false);
+                setDept(true);
+              }}
+            >
               <Link to="#" className="sidebar-text">
                 <IoAddCircleOutline className="icon" />
                 <span>Add Department</span>
               </Link>
-            </li> */}
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>
+
       {pending ? <PendingUser /> : <></>}
       {active ? <AllUser /> : <></>}
+      {dept ? (
+        <>
+          <div className="main">
+            <div className="main-left">
+              <div className="innner-left">
+                <p id="form-text">Add Department </p>
+                <form action="" className="box-grp">
+                  <input
+                    className="form-box"
+                    type="text"
+                    name="dept"
+                    placeholder="Enter new department"
+                    value={value}
+                    onChange={(event) => {
+                      setValue(event.target.value);
+                    }}
+                  ></input>
+
+                  <button
+                    type="submit"
+                    className="form-box"
+                    id="submit-btn"
+                    onClick={handleDept}
+                  >
+                    Add Department
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="main-right text-color">
+              <div className="dept-box">
+                <div className="dept-box-inner">
+                  {all.map((dept) => (
+                    <div>{dept.department}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
