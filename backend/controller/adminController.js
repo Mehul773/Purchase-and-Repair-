@@ -127,7 +127,21 @@ const getdept = async (req, res) => {
     console.log(error);
   }
 };
+const delDept = async (req, res) => {
+  try {
+    const { department } = req.body;
+    const dept = await Department.findOne({ department });
+    console.log(dept);
+    if (!dept) {
+      return res.status(400).json({ message: "Department not found" });
+    }
+    await dept.remove();
 
+    return res.status(404).json({ message: "Department deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = {
   loginAdmin,
   registerAdmin,
@@ -135,4 +149,5 @@ module.exports = {
   getAdminInfo,
   addDepartment,
   getdept,
+  delDept,
 };

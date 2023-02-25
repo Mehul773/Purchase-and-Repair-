@@ -14,6 +14,7 @@ const {
   getdept,
   addSupplier,
   getSupplier,
+  delSupplier,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -29,5 +30,6 @@ router.post("/delete", deletePc);
 router.get("/getdept", getdept);
 router.post("/addsupp", addSupplier);
 router.get("/getsupp", getSupplier);
+router.post("/deletesupp", delSupplier);
 
 module.exports = router;

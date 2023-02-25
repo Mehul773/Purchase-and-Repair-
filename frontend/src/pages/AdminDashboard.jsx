@@ -10,14 +10,15 @@ import { BiUserCheck } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
+import { TiDelete } from "react-icons/ti";
 
 function AdminDashboard() {
   const [sidebar, setSidebar] = useState(false);
   const [active, setActive] = useState(false);
   const [pending, setPending] = useState(true);
-  const [dept, setDept] = useState(false);
+  const [addDept, setAddDept] = useState(false);
 
-  const [value, setValue] = useState("");
+  const [dept, setDept] = useState("");
   const [all, setAll] = useState([]);
 
   useEffect(() => {
@@ -32,13 +33,26 @@ function AdminDashboard() {
       .post(
         "http://localhost:5000/admin/adddept",
         {
-          department: value,
+          department: dept,
         },
         { withCredentials: true }
       )
       .then((response) => {})
       .catch((error) => {
         console.log("Error is " + error);
+      });
+  };
+  const deptDelete = async (event, department) => {
+    event.preventDefault();
+    await axios
+      .post("http://localhost:5000/admin/deletedept", {
+        department: department,
+      })
+      .then((res) => {
+        // window.location.reload("user/admin/dashboard");
+      })
+      .catch((err) => {
+        // window.location.reload("user/admin/dashboard");
       });
   };
   const showSidebar = () => setSidebar(!sidebar);
@@ -63,7 +77,7 @@ function AdminDashboard() {
               onClick={() => {
                 setActive(true);
                 setPending(false);
-                setDept(false);
+                setAddDept(false);
               }}
             >
               <Link to="#" className="sidebar-text">
@@ -76,7 +90,7 @@ function AdminDashboard() {
               onClick={() => {
                 setActive(false);
                 setPending(true);
-                setDept(false);
+                setAddDept(false);
               }}
             >
               <Link to="#" className="sidebar-text">
@@ -89,7 +103,7 @@ function AdminDashboard() {
               onClick={() => {
                 setActive(false);
                 setPending(false);
-                setDept(true);
+                setAddDept(true);
               }}
             >
               <Link to="#" className="sidebar-text">
@@ -103,7 +117,7 @@ function AdminDashboard() {
 
       {pending ? <PendingUser /> : <></>}
       {active ? <AllUser /> : <></>}
-      {dept ? (
+      {addDept ? (
         <>
           <div className="main">
             <div className="main-left">
@@ -115,9 +129,9 @@ function AdminDashboard() {
                     type="text"
                     name="dept"
                     placeholder="Enter new department"
-                    value={value}
+                    value={dept}
                     onChange={(event) => {
-                      setValue(event.target.value);
+                      setDept(event.target.value);
                     }}
                   ></input>
 
@@ -134,12 +148,23 @@ function AdminDashboard() {
             </div>
             <div className="main-right text-color">
               <div className="box">
-                <div className="box-title">
-                  All Departments
-                </div>
+                <div className="box-title">All Departments</div>
                 <div className="box-inner">
                   {all.map((dept) => (
-                    <div>{dept.department}</div>
+                    <>
+                      <div className="flex-row">
+                        <div>{dept.department}</div>
+                        <span>
+                          <TiDelete
+                            className="icon"
+                            size={20}
+                            onClick={(event) =>
+                              deptDelete(event, dept.department)
+                            }
+                          />
+                        </span>
+                      </div>
+                    </>
                   ))}
                 </div>
               </div>

@@ -217,6 +217,21 @@ const getSupplier = async (req, res) => {
     console.log(error);
   }
 };
+const delSupplier = async (req, res) => {
+  try {
+    const { supplier } = req.body;
+    const supp = await Supplier.findOne({ supplier });
+    console.log(supp);
+    if (!supp) {
+      return res.status(400).json({ message: "Supplier not found" });
+    }
+    await supp.remove();
+
+    return res.status(404).json({ message: "supplier deleted" });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   loginPc,
@@ -229,4 +244,5 @@ module.exports = {
   getdept,
   addSupplier,
   getSupplier,
+  delSupplier,
 };

@@ -7,6 +7,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { FiUpload } from "react-icons/fi";
 import { FiDownload } from "react-icons/fi";
 import { IconContext } from "react-icons";
+import { TiDelete } from "react-icons/ti";
 import HeaderPc from "../components/HeaderPc";
 import Download from "../components/Download";
 import Upload from "../components/Upload";
@@ -18,6 +19,8 @@ function PcDashboard() {
   const [download, setDownload] = useState(false);
 
   const [value, setValue] = useState("");
+  const [suppAdd, setSuppAdd] = useState("");
+  const [suppContact, setSuppContact] = useState("");
   const [all, setAll] = useState([]);
 
   useEffect(() => {
@@ -33,12 +36,27 @@ function PcDashboard() {
         "http://localhost:5000/pc/addsupp",
         {
           supplier: value,
+          address: suppAdd,
+          contact: suppContact,
         },
         { withCredentials: true }
       )
       .then((response) => {})
       .catch((error) => {
         console.log("Error is " + error);
+      });
+  };
+  const suppDelete = async (event, supplier) => {
+    event.preventDefault();
+    await axios
+      .post("http://localhost:5000/pc/deletesupp", {
+        supplier: supplier,
+      })
+      .then((res) => {
+        window.location.reload("user/pc/dashboard");
+      })
+      .catch((err) => {
+        window.location.reload("user/pc/dashboard");
       });
   };
   const showSidebar = () => setSidebar(!sidebar);
@@ -112,11 +130,31 @@ function PcDashboard() {
                   <input
                     className="form-box"
                     type="text"
-                    name="dept"
+                    name="suppName"
                     placeholder="Enter new supplier"
                     value={value}
                     onChange={(event) => {
                       setValue(event.target.value);
+                    }}
+                  ></input>
+                  <input
+                    className="form-box"
+                    type="text"
+                    name="suppAddress"
+                    placeholder="Enter supplier address"
+                    value={suppAdd}
+                    onChange={(event) => {
+                      setSuppAdd(event.target.value);
+                    }}
+                  ></input>
+                  <input
+                    className="form-box"
+                    type="text"
+                    name="suppContact"
+                    placeholder="Enter supplier contact number"
+                    value={suppContact}
+                    onChange={(event) => {
+                      setSuppContact(event.target.value);
                     }}
                   ></input>
 
@@ -126,7 +164,7 @@ function PcDashboard() {
                     id="submit-btn"
                     onClick={handleSupp}
                   >
-                    Add Department
+                    Add Supplier
                   </button>
                 </form>
               </div>
@@ -136,7 +174,20 @@ function PcDashboard() {
                 <div className="box-title">All Suppliers</div>
                 <div className="box-inner">
                   {all.map((supp) => (
-                    <div>{supp.supplier}</div>
+                    <>
+                      <div className="flex-row">
+                        <div>{supp.supplier}</div>
+                        <span>
+                          <TiDelete
+                            className="icon"
+                            size={20}
+                            onClick={(event) =>
+                              suppDelete(event, supp.supplier)
+                            }
+                          />
+                        </span>
+                      </div>
+                    </>
                   ))}
                 </div>
               </div>

@@ -351,9 +351,15 @@ span {
   padding: 30px;
   border-radius: 10px;
 }
-.box-title{
+.box-title {
   color: #04151f;
   font-size: 20px;
   font-weight: 600;
   margin: 10px;
 }
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
