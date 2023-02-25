@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import AllUser from "./AllUser";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
-import { BiUserCheck } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { FiUpload } from "react-icons/fi";
 import { FiDownload } from "react-icons/fi";
 import { IconContext } from "react-icons";
 import HeaderPc from "../components/HeaderPc";
+import Download from "../components/Download";
+import Upload from "../components/Upload";
 
 function PcDashboard() {
   const [sidebar, setSidebar] = useState(false);
-  const [supp, setSupp] = useState(true); 
-  const [upload, setUpload] = useState(false); 
-  const [download, setDownload] = useState(false); 
+  const [supp, setSupp] = useState(true);
+  const [upload, setUpload] = useState(false);
+  const [download, setDownload] = useState(false);
 
   const [value, setValue] = useState("");
   const [all, setAll] = useState([]);
@@ -27,13 +26,13 @@ function PcDashboard() {
       .then((response) => setAll(response.data.supp));
   });
 
-  const handleDept = async (event) => {
+  const handleSupp = async (event) => {
     event.preventDefault();
     await axios
       .post(
         "http://localhost:5000/pc/addsupp",
         {
-          department: value,
+          supplier: value,
         },
         { withCredentials: true }
       )
@@ -59,31 +58,40 @@ function PcDashboard() {
                 <AiOutlineClose className="icon icon-bar" />
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {
-              setUpload(true);
-              setDownload(false);
-              setSupp(false);
-            }}>
+            <li
+              className="nav-text"
+              onClick={() => {
+                setUpload(true);
+                setDownload(false);
+                setSupp(false);
+              }}
+            >
               <Link to="#" className="sidebar-text">
                 <FiUpload className="icon" />
                 <span>Upload file</span>
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {
-              setUpload(false);
-              setDownload(true);
-              setSupp(false);
-            }}>
+            <li
+              className="nav-text"
+              onClick={() => {
+                setUpload(false);
+                setDownload(true);
+                setSupp(false);
+              }}
+            >
               <Link to="#" className="sidebar-text">
                 <FiDownload className="icon" />
                 <span>Download file</span>
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {
-              setUpload(false);
-              setDownload(false);
-              setSupp(true);
-            }}>
+            <li
+              className="nav-text"
+              onClick={() => {
+                setUpload(false);
+                setDownload(false);
+                setSupp(true);
+              }}
+            >
               <Link to="#" className="sidebar-text">
                 <IoAddCircleOutline className="icon" />
                 <span>Add Supplier</span>
@@ -92,9 +100,52 @@ function PcDashboard() {
           </ul>
         </nav>
       </IconContext.Provider>
-      {upload ? <Upload/> : <></>}
-      {download ? <Download/> : <></>}
-      {supp ? <AddSupplier/> : <></>}
+      {/* {upload ? <Upload /> : <></>}
+      {download ? <Download /> : <></>} */}
+      {supp ? (
+        <>
+          <div className="main">
+            <div className="main-left">
+              <div className="innner-left">
+                <p id="form-text">Add Supplier </p>
+                <form action="" className="box-grp">
+                  <input
+                    className="form-box"
+                    type="text"
+                    name="dept"
+                    placeholder="Enter new supplier"
+                    value={value}
+                    onChange={(event) => {
+                      setValue(event.target.value);
+                    }}
+                  ></input>
+
+                  <button
+                    type="submit"
+                    className="form-box"
+                    id="submit-btn"
+                    onClick={handleSupp}
+                  >
+                    Add Department
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="main-right text-color">
+              <div className="box">
+                <div className="box-title">All Suppliers</div>
+                <div className="box-inner">
+                  {all.map((supp) => (
+                    <div>{supp.supplier}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

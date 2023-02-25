@@ -133,8 +133,11 @@ function AdminDashboard() {
               </div>
             </div>
             <div className="main-right text-color">
-              <div className="dept-box">
-                <div className="dept-box-inner">
+              <div className="box">
+                <div className="box-title">
+                  All Departments
+                </div>
+                <div className="box-inner">
                   {all.map((dept) => (
                     <div>{dept.department}</div>
                   ))}

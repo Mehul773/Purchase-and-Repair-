@@ -339,15 +339,21 @@ span {
   height: 20px;
 }
 /* ---------------------------------------------------------------------------------------------------- */
-/* admin dashboard  */
-.dept-box {
+/* admin pc dashboard  */
+.box {
   background-color: #818a8f;
   border: 2px solid aliceblue;
   border-radius: 10px;
-  padding: 10px;
+  padding: 0px 15px 15px 15px;
 }
-.dept-box-inner {
+.box-inner {
   background-color: black;
   padding: 30px;
   border-radius: 10px;
+}
+.box-title{
+  color: #04151f;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px;
 }
