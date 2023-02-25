@@ -7,14 +7,16 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiUserCheck } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { FiUpload } from "react-icons/fi";
+import { FiDownload } from "react-icons/fi";
 import { IconContext } from "react-icons";
 import HeaderPc from "../components/HeaderPc";
 
 function PcDashboard() {
   const [sidebar, setSidebar] = useState(false);
-  /*   const [active, setActive] = useState(false);
-  const [pending, setPending] = useState(true);
-  const [supp, setSupp] = useState(false); */
+  const [supp, setSupp] = useState(true); 
+  const [upload, setUpload] = useState(false); 
+  const [download, setDownload] = useState(false); 
 
   const [value, setValue] = useState("");
   const [all, setAll] = useState([]);
@@ -57,19 +59,31 @@ function PcDashboard() {
                 <AiOutlineClose className="icon icon-bar" />
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {}}>
+            <li className="nav-text" onClick={() => {
+              setUpload(true);
+              setDownload(false);
+              setSupp(false);
+            }}>
               <Link to="#" className="sidebar-text">
-                <BiUserCheck className="icon" />
+                <FiUpload className="icon" />
                 <span>Upload file</span>
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {}}>
+            <li className="nav-text" onClick={() => {
+              setUpload(false);
+              setDownload(true);
+              setSupp(false);
+            }}>
               <Link to="#" className="sidebar-text">
-                <FiUsers className="icon" />
+                <FiDownload className="icon" />
                 <span>Download file</span>
               </Link>
             </li>
-            <li className="nav-text" onClick={() => {}}>
+            <li className="nav-text" onClick={() => {
+              setUpload(false);
+              setDownload(false);
+              setSupp(true);
+            }}>
               <Link to="#" className="sidebar-text">
                 <IoAddCircleOutline className="icon" />
                 <span>Add Supplier</span>
@@ -78,6 +92,9 @@ function PcDashboard() {
           </ul>
         </nav>
       </IconContext.Provider>
+      {upload ? <Upload/> : <></>}
+      {download ? <Download/> : <></>}
+      {supp ? <AddSupplier/> : <></>}
     </>
   );
 }
