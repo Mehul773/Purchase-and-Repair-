@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const PurchaseCoordinator = require("../models/pcModel");
 const { protectPc } = require("../middleware/authPurchaseController");
+// ============================================================
+const multer = require("multer"); // is a MIDDLEWARE to handle form-data
+const fs = require("fs"); // its File System to work with file on our system
+const path = require("path"); // to join paths of file and directories
 
 const {
   loginPc,
@@ -15,6 +19,8 @@ const {
   addSupplier,
   getSupplier,
   delSupplier,
+  uploadFile,
+  downloadfile,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -31,5 +37,54 @@ router.get("/getdept", getdept);
 router.post("/addsupp", addSupplier);
 router.get("/getsupp", getSupplier);
 router.post("/deletesupp", delSupplier);
+
+// ===============================================================================
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    //providing destination to store file
+    // console.log(process.cwd()); 
+
+    if (!fs.existsSync("public")) {
+      //if public folder in file system exist ?
+      fs.mkdirSync("public");
+    }
+
+    if (!fs.existsSync("public/files")) {
+      fs.mkdirSync("public/files");
+    }
+
+    cb(null, "public/files");
+  },
+  filename: function (req, file, cb) {
+    /* console.log(file); */
+    cb(null, Date.now() + file.originalname); //assigning unique filename
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    const ext = path.extname(file.originalname); //checking for extention to be .xlsx
+    if (ext != ".xlsx") {
+      return cb(new Error("Only .xlsx are allowed"));
+    }
+
+    cb(null, true);
+  },
+});
+
+router.post(
+  "/uploadfile",
+  upload.fields([
+    //upload.fiels and not uploads.single because we wanted to upload multiple file at once
+    {
+      name: "uploads", //uploads is the name of our key field in postman
+      maxCount: 5,
+    },
+  ]),
+  uploadFile
+);
+
+router.get("/downloadfile", downloadfile);
 
 module.exports = router;

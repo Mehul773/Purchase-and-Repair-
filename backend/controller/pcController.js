@@ -4,6 +4,14 @@ const Pc = require("../models/pcModel");
 const nodemailer = require("../config/nodemailer.config");
 const Department = require("../models/departmentModel");
 const Supplier = require("../models/supplierModel");
+// ----------------------------------------------------------------
+const Purchase = require("../models/purchaseModel");
+const fs = require("fs");
+const path = require("path");
+const csv = require("fast-csv");
+// const xlsx = require("node-xlsx");
+const xlsx = require("xlsx");
+const chmodr = require("chmodr");
 
 const loginPc = async (req, res) => {
   try {
@@ -221,7 +229,6 @@ const delSupplier = async (req, res) => {
   try {
     const { supplier } = req.body;
     const supp = await Supplier.findOne({ supplier });
-    console.log(supp);
     if (!supp) {
       return res.status(400).json({ message: "Supplier not found" });
     }
@@ -231,6 +238,89 @@ const delSupplier = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+// ===========================================================================
+const uploadFile = async (req, res) => {
+  const files = [];
+  try {
+    if (Array.isArray(req.files.uploads) && req.files.uploads.length > 0) {
+      //checking if req.files.uploads is array and it exist or not
+      for (let file of req.files.uploads) {
+        files.push(file); //pushing each file into files array
+      }
+    }
+  } catch (error) {
+    return res.status(401).json({ message: "File Array not Uploaded" });
+  }
+
+  for (var k = 0; k < files.length; k++) {
+    //loop to iterate through all files in files array
+    console.log(files[k].filename);
+    //for pushing json to database
+    try {
+      // console.log(process.cwd()); F:\mehul study\React\sdp project\Purchase and Repair
+      const path1 = path.join(
+        __dirname,
+        "../../",
+        "/public/files/" + files[k].filename
+      );
+      // console.log(path1); F:\mehul study\React\sdp project\Purchase and Repair\public\files\1677520009765new.xlsx
+      let xlFile = xlsx.readFile(path1);
+      let sheet = xlFile.Sheets[xlFile.SheetNames[0]];
+      const P_JSON = xlsx.utils.sheet_to_json(sheet);
+      try {
+        await Purchase.insertMany(P_JSON);
+        res.status(200).json({ message: "Data entered successfully" });
+      } catch (error) {
+        res.send({ message: "Duplicate key found" });
+      }
+
+      chmodr("./", 0o777, (err) => {
+        //giving permission to read,write and execute to current folder
+        if (err) {
+          console.log("Failed to execute chmod", err);
+        } else {
+        }
+      });
+
+      fs.rmSync("./public/files", { recursive: true, force: true }); // deleting files folder for saving space
+    } catch (error) {
+      chmodr("./", 0o777, (err) => {
+        if (err) {
+          console.log("Failed to execute chmod", err);
+        } else {
+        }
+      });
+      console.log(error);
+      fs.rmSync("./public/files", { recursive: true, force: true });
+    }
+  }
+};
+
+const downloadfile = async (req, res) => {
+  var wb = xlsx.utils.book_new();
+  Purchase.find({}, { _id: 0 }, (err, data) => {
+    if (err) {
+      console.log("Error : ", err);
+    } else {
+      var temp = JSON.stringify(data); // Convert JSON to Json string
+      temp = JSON.parse(temp); // Convert to object
+      var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
+      xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
+      xlsx.writeFile(
+        //Now creating new file with unique name and writing EXCEL data to it
+        wb,
+        (path1 = path.join(
+          __dirname,
+          "../../",
+          "/datafetcher/",
+          `${Date.now()}` + "test.xlsx"
+        ))
+      );
+      res.download(path1);
+    }
+  });
 };
 
 module.exports = {
@@ -245,4 +335,6 @@ module.exports = {
   addSupplier,
   getSupplier,
   delSupplier,
+  uploadFile,
+  downloadfile,
 };

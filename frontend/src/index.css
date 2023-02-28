@@ -273,7 +273,22 @@ input:focus::placeholder {
 
 /* ----------------------------------------------------------------------------- */
 /* sidebar  */
-
+.outer-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mycontainer1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.format{
+  color: wheat;
+  margin-right: 20px;
+}
 .navbar {
   background-color: aliceblue;
   height: 65px;
@@ -363,3 +378,57 @@ span {
   align-items: center;
 }
 
+/* ==================================================================== */
+/* pc file upload */
+.mycontainer {
+  display: inline-block;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid white;
+}
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  
+
+}
+.upload-dot{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 4px dashed #56dca8;
+  padding: 30px;
+  border-radius: 20px;
+}
+.img-file {
+  width: 128px;
+  margin-bottom: 10px;
+}
+
+.file-in {
+  margin-left: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+.upload-btn{
+  margin-top: 20px;
+}
+.text-size{
+  font-size: larger;
+}
+/* ================================================================== */
+/* pc file download */
+.download-flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.download-btn{
+  margin-top: 20px;
+}

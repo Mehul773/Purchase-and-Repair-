@@ -118,8 +118,8 @@ function PcDashboard() {
           </ul>
         </nav>
       </IconContext.Provider>
-      {/* {upload ? <Upload /> : <></>}
-      {download ? <Download /> : <></>} */}
+      {upload ? <Upload /> : <></>}
+      {download ? <Download /> : <></>}
       {supp ? (
         <>
           <div className="main">

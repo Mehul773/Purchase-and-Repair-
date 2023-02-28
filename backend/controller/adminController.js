@@ -131,7 +131,6 @@ const delDept = async (req, res) => {
   try {
     const { department } = req.body;
     const dept = await Department.findOne({ department });
-    console.log(dept);
     if (!dept) {
       return res.status(400).json({ message: "Department not found" });
     }

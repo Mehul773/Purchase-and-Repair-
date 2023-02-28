@@ -43,6 +43,7 @@ function App() {
             <Route path="/pc/dashboard" element={<PcDashboard />}></Route>
             <Route path="/dean/dashboard" element={<DeanDashboard />}></Route>
             <Route path="/hod/dashboard" element={<HodDashboard />}></Route>
+
           </Routes>
         </div>
       </Router>
