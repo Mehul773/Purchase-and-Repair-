@@ -432,3 +432,17 @@ span {
 .download-btn{
   margin-top: 20px;
 }
+/* ======================================================= */
+/* PC dashboard upload Purchase or Repair */
+.title-size{
+  font-size: xx-large;
+}
+.container-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choose-file-img{
+  width: 320px;
+  margin: 10px;
+}

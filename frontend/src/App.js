@@ -14,6 +14,13 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PcDashboard from "./pages/PcDashboard";
 import DeanDashboard from "./pages/DeanDashboard";
 import HodDashboard from "./pages/HodDashboard";
+import PcUpload from "./pages/PcUpload";
+import PcDownload from "./pages/PcDownload";
+import PcAddSupplier from "./pages/PcAddSupplier";
+import PcUploadPurchase from "./pages/PcUploadPurchase";
+import PcDownloadPurchase from "./pages/PcDownloadPurchase";
+import PcUploadRepair from "./pages/PcUploadRepair";
+import PcDownloadRepair from "./pages/PcDownloadRepair";
 
 function App() {
   return (
@@ -25,16 +32,10 @@ function App() {
 
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/login" element={<Login></Login>}></Route>
-            <Route
-              path="/signup/dean"
-              element={<SignUpDean></SignUpDean>}
-            ></Route>
+            <Route path="/signup/dean" element={<SignUpDean></SignUpDean>}></Route>
             <Route path="/signup/hod" element={<SignUpHod></SignUpHod>}></Route>
             <Route path="/signup/pc" element={<SignUpPc></SignUpPc>}></Route>
-            <Route
-              path="/login/admin"
-              element={<LoginAdmin></LoginAdmin>}
-            ></Route>
+            <Route path="/login/admin" element={<LoginAdmin></LoginAdmin>}></Route>
             <Route path="/login/dean" element={<LoginDean></LoginDean>}></Route>
             <Route path="/login/hod" element={<LoginHod></LoginHod>}></Route>
             <Route path="/login/pc" element={<LoginPc></LoginPc>}></Route>
@@ -43,6 +44,16 @@ function App() {
             <Route path="/pc/dashboard" element={<PcDashboard />}></Route>
             <Route path="/dean/dashboard" element={<DeanDashboard />}></Route>
             <Route path="/hod/dashboard" element={<HodDashboard />}></Route>
+
+            <Route path="/pc/upload" element={<PcUpload />}></Route>
+            <Route path="/pc/download" element={<PcDownload />}></Route>
+            <Route path="/pc/addsupp"element={<PcAddSupplier />} ></Route>
+
+            <Route path="/pc/upload/purchase"element={<PcUploadPurchase />} ></Route>
+            <Route path="/pc/upload/repair"element={<PcUploadRepair />} ></Route>
+            
+            <Route path="/pc/download/purchase"element={<PcDownloadPurchase />} ></Route>
+            <Route path="/pc/download/repair"element={<PcDownloadRepair />} ></Route>
 
           </Routes>
         </div>
