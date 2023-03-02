@@ -19,7 +19,7 @@ function AdminDashboard() {
   const [addDept, setAddDept] = useState(false);
 
   const [dept, setDept] = useState("");
-  const [all, setAll] = useState([]);
+  const [all, setAll] = useState([]);//get all departments
 
   useEffect(() => {
     axios

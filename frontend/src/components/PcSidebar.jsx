@@ -38,6 +38,12 @@ function PcSidebar() {
               </Link>
             </li>
             <li className="nav-text">
+              <Link to="/pc/view" className="sidebar-text">
+                <FiDownload className="icon" />
+                <span>View data</span>
+              </Link>
+            </li>
+            <li className="nav-text">
               <Link to="/pc/addsupp" className="sidebar-text">
                 <IoAddCircleOutline className="icon" />
                 <span>Add Supplier</span>

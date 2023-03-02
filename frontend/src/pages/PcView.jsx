@@ -7,24 +7,24 @@ import HeaderPc from "../components/HeaderPc";
 import PcSidebar from "../components/PcSidebar";
 
 
-const PcUpload = () => {
+const PcView = () => {
   return (
     <div>
       <HeaderPc/>
       <PcSidebar/>
       <div>
-      <p className="text-color title-size">Select type of file</p>
+      <p className="text-color title-size">Which File do you want to view</p>
       <div className="container-flex">
         <div >
-          <Link to="/pc/upload/purchase">
+          <Link to="/pc/view/purchase">
             <img src={purchase} alt="Purchase" className="choose-file-img" />
-            <p className="text-color">Purchase</p>
+            <p className="text-color">Purchase file</p>
           </Link>
         </div>
         <div>
-          <Link to="/pc/upload/repair">
+          <Link to="/pc/view/repair">
             <img src={repair} alt="Repair" className="choose-file-img" />
-            <p className="text-color">Recurring</p>
+            <p className="text-color">Recurring file</p>
           </Link>
         </div>
       </div>
@@ -33,4 +33,4 @@ const PcUpload = () => {
   );
 };
 
-export default PcUpload;
+export default PcView;

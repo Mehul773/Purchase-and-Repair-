@@ -412,6 +412,30 @@ const downloadrepairfile = async (req, res) => {
     }
   });
 };
+// =============================================================================
+// Get all purchase data 
+const getpurchase = async (req, res) => {
+  try {
+    const files = await Purchase.find();
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+// =============================================================================
+// Get all repair data 
+const getrepair = async (req, res) => {
+  try {
+    const files = await Recurring.find();
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   loginPc,
@@ -429,4 +453,6 @@ module.exports = {
   downloadfile,
   uploadRepairFile,
   downloadrepairfile,
+  getpurchase,
+  getrepair,
 };

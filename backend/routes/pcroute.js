@@ -23,6 +23,8 @@ const {
   downloadfile,
   uploadRepairFile,
   downloadrepairfile,
+  getpurchase,
+  getrepair,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -39,6 +41,10 @@ router.get("/getdept", getdept);
 router.post("/addsupp", addSupplier);
 router.get("/getsupp", getSupplier);
 router.post("/deletesupp", delSupplier);
+
+router.get("/getpurchase", getpurchase);
+router.get("/getrepair", getrepair);
+
 
 // ===============================================================================
 // upload purchase file 
