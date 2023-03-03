@@ -25,6 +25,7 @@ const {
   downloadrepairfile,
   getpurchase,
   getrepair,
+  formpurchase,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -45,7 +46,7 @@ router.post("/deletesupp", delSupplier);
 router.get("/getpurchase", getpurchase);
 router.get("/getrepair", getrepair);
 
-
+router.post("/formpurchase",formpurchase)
 // ===============================================================================
 // upload purchase file 
 const storage = multer.diskStorage({

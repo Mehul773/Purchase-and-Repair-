@@ -12,11 +12,15 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  monospace;
 }
-::-webkit-input-placeholder {
+/* ::-webkit-input-placeholder {
   text-align: center;
-  color: #04151f;
+  color: #020d13;
+} */
+input:-webkit-autofill,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #56dca8 inset !important;
 }
 .header {
   display: flex;
@@ -168,10 +172,6 @@ ul .left-li-div {
   padding: 17px;
   margin-left: 150px;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #56dca8 inset !important;
-}
 .form-box {
   background-color: #56dca8;
   text-align: center;
@@ -211,6 +211,7 @@ input:-webkit-autofill:active {
 input:focus::placeholder {
   color: transparent;
 }
+
 
 .graytext {
   color: #818a8f;
@@ -445,4 +446,34 @@ span {
 .choose-file-img{
   width: 320px;
   margin: 10px;
+}
+/* ================================================================= */
+/* PC Insert by form  */
+.pc-form-main{
+  display: inline-block;
+  width: auto;
+  margin: auto;
+}
+.pc-form-back{
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 17px;
+}
+.pc-form-box {
+  background-color: #56dca8;
+  text-align: center;
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 500px;
+}
+.form-dropdown {
+  background-color: #56dca8;
+  text-align: center;
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 500px;
 }

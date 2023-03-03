@@ -8,7 +8,7 @@ function PcDashboard() {
   const [value, setValue] = useState("");//supplier name
   const [suppAdd, setSuppAdd] = useState("");
   const [suppContact, setSuppContact] = useState("");
-  const [all, setAll] = useState([]);
+  const [all, setAll] = useState([]);//get all supplier name,address,contact
 
   useEffect(() => {
     axios

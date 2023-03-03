@@ -125,12 +125,6 @@ function SignUpPc() {
                   setDepartment(event.target.value);
                 }}
               >
-                {/* <option>Computer engineering</option>
-                <option>Information technology</option>
-                <option>Chemical engineering</option>
-                <option>Civil engineering</option>
-                <option>Mechanical engineering</option>
-                <option>Electronics & Communication engineering</option> */}
                 {all.map((dept) => (
                   <option>{dept.department}</option>
                 ))}

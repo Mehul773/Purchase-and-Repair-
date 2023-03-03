@@ -24,6 +24,9 @@ import PcDownloadRepair from "./pages/PcDownloadRepair";
 import PcView from "./pages/PcView";
 import PcViewPurchase from "./pages/PcViewPurchase";
 import PcViewRepair from "./pages/PcViewRepair";
+import PcForm from "./pages/PcForm";
+import PcFormPurchase from "./pages/PcFormPurchase";
+import PcFormRepair from "./pages/PcFormRepair";
 
 function App() {
   return (
@@ -81,10 +84,12 @@ function App() {
               path="/pc/view/purchase"
               element={<PcViewPurchase />}
             ></Route>
-            <Route
-              path="/pc/view/repair"
-              element={<PcViewRepair />}
-            ></Route>
+            <Route path="/pc/view/repair" element={<PcViewRepair />}></Route>
+
+            <Route path="/pc/form" element={<PcForm />}></Route>
+            <Route path="/pc/form/purchase" element={<PcFormPurchase />}></Route>
+            <Route path="/pc/form/repair" element={<PcFormRepair />}></Route>
+            
           </Routes>
         </div>
       </Router>

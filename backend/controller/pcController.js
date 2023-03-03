@@ -300,7 +300,7 @@ const uploadFile = async (req, res) => {
   }
 };
 // -------------------------------------------------------------
-// download repair file 
+// download repair file
 const downloadfile = async (req, res) => {
   var wb = xlsx.utils.book_new();
   Purchase.find({}, { _id: 0 }, (err, data) => {
@@ -413,7 +413,7 @@ const downloadrepairfile = async (req, res) => {
   });
 };
 // =============================================================================
-// Get all purchase data 
+// Get all purchase data
 const getpurchase = async (req, res) => {
   try {
     const files = await Purchase.find();
@@ -425,13 +425,58 @@ const getpurchase = async (req, res) => {
   }
 };
 // =============================================================================
-// Get all repair data 
+// Get all repair data
 const getrepair = async (req, res) => {
   try {
     const files = await Recurring.find();
     res.json({
       files: files,
     });
+  } catch (error) {
+    console.log(error);
+  }
+};
+// =================================================================================
+// Insert purchase data by form
+const formpurchase = async (req, res) => {
+  try {
+    const {
+      Sr_No,
+      Academic_Year,
+      Item,
+      Description,
+      Quantity,
+      Total_Quantity,
+      Price,
+      Total,
+      Bill_No,
+      Invoice_Date,
+      PO_No,
+      PO_Date,
+      Supplier_Name,
+      Address,
+      Contact,
+    } = req.body;
+
+    await Purchase.create({
+      Sr_No,
+      Academic_Year,
+      Item,
+      Description,
+      Quantity,
+      Total_Quantity,
+      Price,
+      Total,
+      Bill_No,
+      Invoice_Date,
+      PO_No,
+      PO_Date,
+      Supplier_Name,
+      Address,
+      Contact,
+    });
+
+    res.json({ message: `Data inserted in purchase database` });
   } catch (error) {
     console.log(error);
   }
@@ -455,4 +500,5 @@ module.exports = {
   downloadrepairfile,
   getpurchase,
   getrepair,
+  formpurchase,
 };

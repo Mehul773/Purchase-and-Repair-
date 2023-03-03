@@ -26,6 +26,12 @@ function PcSidebar() {
               </Link>
             </li>
             <li className="nav-text">
+              <Link to="/pc/form" className="sidebar-text">
+                <FiUpload className="icon" />
+                <span>Insert by form</span>
+              </Link>
+            </li>
+            <li className="nav-text">
               <Link to="/pc/upload" className="sidebar-text">
                 <FiUpload className="icon" />
                 <span>Upload file</span>
