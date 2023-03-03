@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
+import PcSidebarPurchase from "../components/PcSidebarPurchase";
 
-function PcDashboard() {
-  const [value, setValue] = useState("");//supplier name
+function PcAddSupplierPurchase() {
+  const [value, setValue] = useState(""); //supplier name
   const [suppAdd, setSuppAdd] = useState("");
   const [suppContact, setSuppContact] = useState("");
-  const [all, setAll] = useState([]);//get all supplier name,address,contact
+  const [all, setAll] = useState([]); //get all supplier name,address,contact
 
   useEffect(() => {
     axios
@@ -50,7 +50,7 @@ function PcDashboard() {
   return (
     <>
       <HeaderPc />
-      <PcSidebar />
+      <PcSidebarPurchase />
       <div className="main">
         <div className="main-left">
           <div className="innner-left">
@@ -124,4 +124,4 @@ function PcDashboard() {
   );
 }
 
-export default PcDashboard;
+export default PcAddSupplierPurchase;

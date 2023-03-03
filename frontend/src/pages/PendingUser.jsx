@@ -4,7 +4,6 @@ import DeanTable from "../components/DeanTable";
 import HodTable from "../components/HodTable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import HeaderAdmin from "../components/HeaderAdmin";
 
 function PendingUser() {
   const [pcs, setPc] = useState([]);

@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
+import PcSidebarPurchase from "../components/PcSidebarPurchase";
 import { ToastContainer, toast } from "react-toastify";
 
-function PcDashboard() {
+function PcFormPurchase() {
   const [all, setAll] = useState([]); //get all supplier name,address,contact
   useEffect(() => {
     axios
@@ -78,7 +78,8 @@ function PcDashboard() {
     <>
       <ToastContainer />
       <HeaderPc />
-      <PcSidebar />
+      <PcSidebarPurchase />
+      <div className="title-size text-color">Form for Purchase file</div>
       <div className="pc-form-main">
         <div className="pc-form-back">
           <div>
@@ -233,4 +234,4 @@ function PcDashboard() {
   );
 }
 
-export default PcDashboard;
+export default PcFormPurchase;

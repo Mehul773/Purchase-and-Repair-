@@ -48,7 +48,7 @@ function AllPcTable(pc) {
             {pc.pc.status}
           </span>
         </td>
-        <td className="py-3 px-6 text-center" style={{cursor: "pointer"}}>
+        <td className="py-3 px-6 text-center" style={{ cursor: "pointer" }}>
           <div
             className="transform hover:text-red-500 hover:scale-110"
             onClick={HandleDelete}

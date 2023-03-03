@@ -300,7 +300,7 @@ const uploadFile = async (req, res) => {
   }
 };
 // -------------------------------------------------------------
-// download repair file
+// download purchase file
 const downloadfile = async (req, res) => {
   var wb = xlsx.utils.book_new();
   Purchase.find({}, { _id: 0 }, (err, data) => {
@@ -481,6 +481,46 @@ const formpurchase = async (req, res) => {
     console.log(error);
   }
 };
+// =================================================================================
+// Insert repair data by form
+
+const formrepair = async (req, res) => {
+  try {
+    const {
+      Sr_No,
+      Description_of_Material,
+      Name_Of_Supplier,
+      Bill_No,
+      Date,
+      Amount,
+      Material,
+      Receiving_Year,
+      Year,
+      Yearly_expense,
+      // Address,
+      // Contact,
+    } = req.body;
+
+    await Recurring.create({
+      Sr_No,
+      Description_of_Material,
+      Name_Of_Supplier,
+      Bill_No,
+      Date,
+      Amount,
+      Material,
+      Receiving_Year,
+      Year,
+      Yearly_expense,
+      // Address,
+      // Contact,
+    });
+
+    res.json({ message: `Data inserted in recurring database` });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   loginPc,
@@ -501,4 +541,5 @@ module.exports = {
   getpurchase,
   getrepair,
   formpurchase,
+  formrepair,
 };

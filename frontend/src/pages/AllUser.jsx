@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PcTable from "../components/PcTable";
-import DeanTable from "../components/DeanTable";
-import HodTable from "../components/HodTable";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import HeaderAdmin from "../components/HeaderAdmin";
 import AllDeanTable from "../components/AllDeanTable";
 import AllHodTable from "../components/AllHodTable";
 import AllPcTable from "../components/AllPcTable";

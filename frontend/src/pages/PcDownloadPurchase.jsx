@@ -1,7 +1,7 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
+import PcSidebarPurchase from "../components/PcSidebarPurchase";
 
 const PcDownloadPurchase = () => {
   const handleSubmit = async (event) => {
@@ -20,8 +20,8 @@ const PcDownloadPurchase = () => {
 
   return (
     <>
-    <HeaderPc/>
-    <PcSidebar/>
+      <HeaderPc />
+      <PcSidebarPurchase />
       <div className="download-flex">
         <div>
           <p className="text-color text-size">Download purchase file</p>

@@ -3,7 +3,7 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
+import PcSidebarPurchase from "../components/PcSidebarPurchase";
 
 const PcViewPurchase = () => {
   const [files, setFiles] = useState([]);
@@ -18,10 +18,8 @@ const PcViewPurchase = () => {
     <>
       <div>
         <HeaderPc />
-        <PcSidebar />
-        <div className="title-size text-color">
-          Purchase data
-        </div>
+        <PcSidebarPurchase />
+        <div className="title-size text-color">Purchase data</div>
         <div className="min-h-screen">
           <div>
             <p className="text-color title-size"></p>
@@ -66,20 +64,48 @@ const PcViewPurchase = () => {
                               <td className="py-3 px-6 text-center">
                                 <div>{file.Sr_No}</div>
                               </td>
-                                <td className="py-3 px-6 text-center"><div>{file.Academic_Year}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Item}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Description}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Quantity}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Total_Quantity}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Price}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Total}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Bill_No}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Invoice_Date}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.PO_No}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.PO_Date}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Supplier_Name}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Address}</div></td>
-                                <td className="py-3 px-6 text-center"><div>{file.Contact}</div></td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Academic_Year}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Item}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Description}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Quantity}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Total_Quantity}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Price}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Total}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Bill_No}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Invoice_Date}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.PO_No}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.PO_Date}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Supplier_Name}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Address}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Contact}</div>
+                              </td>
                             </tr>
                           </tbody>
                         </>

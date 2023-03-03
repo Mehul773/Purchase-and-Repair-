@@ -1,14 +1,17 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
+import PcSidebarRepair from "../components/PcSidebarRepair";
 
 const PcDownloadRepair = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.get("http://localhost:5000/pc/downloadrepairfile", {
-      responseType: "blob",
-    });
+    const response = await axios.get(
+      "http://localhost:5000/pc/downloadrepairfile",
+      {
+        responseType: "blob",
+      }
+    );
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
@@ -20,8 +23,8 @@ const PcDownloadRepair = () => {
 
   return (
     <>
-    <HeaderPc/>
-    <PcSidebar/>
+      <HeaderPc />
+      <PcSidebarRepair />
       <div className="download-flex">
         <div>
           <p className="text-color text-size">Download purchase file</p>

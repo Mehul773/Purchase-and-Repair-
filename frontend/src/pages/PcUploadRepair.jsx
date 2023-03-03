@@ -4,8 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import logo from "../Asset/fileupload.png";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
-import {Link} from "react-router-dom";
+import PcSidebarRepair from "../components/PcSidebarRepair";
+import { Link } from "react-router-dom";
 const PcUploadRepair = () => {
   const [file, setFile] = useState();
 
@@ -39,7 +39,7 @@ const PcUploadRepair = () => {
   return (
     <>
       <HeaderPc />
-      <PcSidebar />
+      <PcSidebarRepair />
       <div className="outer-container">
         <div className="my-6">
           <p className="text-color title-size">Upload recurring files </p>
@@ -48,7 +48,10 @@ const PcUploadRepair = () => {
           <div>
             <p className="format">Download format for recurring file </p>
           </div>
-          <Link to="https://docs.google.com/spreadsheets/d/17AKdKZAsQ6Urbto2RvoN_MhcWQMH4QI2/edit?usp=sharing&ouid=102308490812095146273&rtpof=true&sd=true" target="_blank">
+          <Link
+            to="https://docs.google.com/spreadsheets/d/17AKdKZAsQ6Urbto2RvoN_MhcWQMH4QI2/edit?usp=sharing&ouid=102308490812095146273&rtpof=true&sd=true"
+            target="_blank"
+          >
             <div className="btn" role="button">
               Download sample file
             </div>

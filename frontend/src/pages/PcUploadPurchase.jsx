@@ -4,8 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import logo from "../Asset/fileupload.png";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderPc from "../components/HeaderPc";
-import PcSidebar from "../components/PcSidebar";
-import {Link} from "react-router-dom";
+import PcSidebarPurchase from "../components/PcSidebarPurchase";
+import { Link } from "react-router-dom";
 const PcUploadPurchase = () => {
   const [file, setFile] = useState();
 
@@ -38,8 +38,8 @@ const PcUploadPurchase = () => {
 
   return (
     <>
-    <HeaderPc/>
-    <PcSidebar/>
+      <HeaderPc />
+      <PcSidebarPurchase />
       <div className="outer-container">
         <div className="my-6">
           <p className="text-color title-size">Upload purchase files </p>
@@ -48,7 +48,10 @@ const PcUploadPurchase = () => {
           <div>
             <p className="format">Download format for Purchase file </p>
           </div>
-          <Link to="https://docs.google.com/spreadsheets/d/197NPzjB8B8ZyyTGOm8RaUlLA6HDnsJUm/edit?usp=sharing&ouid=102308490812095146273&rtpof=true&sd=true" target="_blank">
+          <Link
+            to="https://docs.google.com/spreadsheets/d/197NPzjB8B8ZyyTGOm8RaUlLA6HDnsJUm/edit?usp=sharing&ouid=102308490812095146273&rtpof=true&sd=true"
+            target="_blank"
+          >
             <div className="btn" role="button">
               Download sample file
             </div>

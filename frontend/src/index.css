@@ -12,7 +12,7 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-  monospace;
+    monospace;
 }
 /* ::-webkit-input-placeholder {
   text-align: center;
@@ -26,8 +26,10 @@ input:-webkit-autofill:active {
   display: flex;
   background-color: #ffffff;
   justify-content: space-between;
+  align-items: center;
   padding: 8px;
 }
+
 #logo {
   height: 50px;
 }
@@ -212,7 +214,6 @@ input:focus::placeholder {
   color: transparent;
 }
 
-
 .graytext {
   color: #818a8f;
 }
@@ -274,29 +275,35 @@ input:focus::placeholder {
 
 /* ----------------------------------------------------------------------------- */
 /* sidebar  */
-.outer-container{
+.outer-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.mycontainer1{
+.mycontainer1 {
   display: flex;
   justify-content: center;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
 }
-.format{
+.format {
   color: wheat;
   margin-right: 20px;
 }
 .navbar {
-  background-color: aliceblue;
   height: 65px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
-  width: 0px;
+  background-color: #04151f;
+  /* position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1; */
+}
+.navbar-right {
+  margin-right: 16px;
 }
 .menu-bars {
   margin-left: 2rem;
@@ -394,10 +401,8 @@ span {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  
-
 }
-.upload-dot{
+.upload-dot {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -416,45 +421,45 @@ span {
   align-items: center;
   margin-top: 20px;
 }
-.upload-btn{
+.upload-btn {
   margin-top: 20px;
 }
-.text-size{
+.text-size {
   font-size: larger;
 }
 /* ================================================================== */
 /* pc file download */
-.download-flex{
+.download-flex {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.download-btn{
+.download-btn {
   margin-top: 20px;
 }
 /* ======================================================= */
 /* PC dashboard upload Purchase or Repair */
-.title-size{
+.title-size {
   font-size: xx-large;
 }
-.container-flex{
+.container-flex {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.choose-file-img{
+.choose-file-img {
   width: 320px;
   margin: 10px;
 }
 /* ================================================================= */
 /* PC Insert by form  */
-.pc-form-main{
+.pc-form-main {
   display: inline-block;
   width: auto;
   margin: auto;
 }
-.pc-form-back{
+.pc-form-back {
   background-color: #ffffff;
   border-radius: 14px;
   padding: 17px;
