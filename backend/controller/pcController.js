@@ -62,6 +62,7 @@ const registerPc = async (req, res) => {
     if (userExists) {
       res.json({ message: "User Already Exists" });
     }
+   
 
     // Hash Password
 

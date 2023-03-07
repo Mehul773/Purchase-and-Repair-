@@ -207,7 +207,7 @@ function PcFormPurchase() {
                 className="form-dropdown"
                 value={supplierName}
                 onChange={(event) => {
-                  console.log(event.target.value);
+                  // console.log(event.target.value);
                   if (event.target.value === "Select supplier") {
                     setSupplierName("");
                     setSupplierAddress("");

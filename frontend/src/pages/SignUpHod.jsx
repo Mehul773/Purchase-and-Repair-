@@ -116,10 +116,14 @@ function SignUpHod() {
                 className="dropdown"
                 value={department}
                 onChange={(event) => {
-                  setDepartment(event.target.value);
-                  console.log(event.target.value);
+                  if (event.target.value === "Select Department") {
+                    setDepartment("");
+                  } else {
+                    setDepartment(event.target.value);
+                  }
                 }}
               >
+                <option>Select Department</option>
                 {all.map((dept) => (
                   <option>{dept.department}</option>
                 ))}
