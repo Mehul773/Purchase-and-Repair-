@@ -6,6 +6,16 @@ import { ToastContainer, toast } from "react-toastify";
 
 function PcFormRepair() {
   const [all, setAll] = useState([]); //get all supplier name,address,contact
+  const [department, setDepartment] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getme", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+      });
+  });
   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
@@ -26,6 +36,7 @@ function PcFormRepair() {
     Receiving_Year: "",
     Year: "",
     Yearly_expense: "",
+    Department: "",
   });
 
   const handleInputChange = (event) => {
@@ -51,6 +62,7 @@ function PcFormRepair() {
           Yearly_expense: formData.Yearly_expense,
           // Address: supplierAddress,
           // Contact: supplierContact,
+          Department: department,
         },
         { withCredentials: true }
       )
@@ -98,7 +110,6 @@ function PcFormRepair() {
                 className="form-dropdown"
                 value={supplierName}
                 onChange={(event) => {
-                  console.log(event.target.value);
                   if (event.target.value === "Select supplier") {
                     setSupplierName("");
                     // setSupplierAddress("");

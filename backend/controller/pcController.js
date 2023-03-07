@@ -416,7 +416,8 @@ const downloadrepairfile = async (req, res) => {
 // Get all purchase data
 const getpurchase = async (req, res) => {
   try {
-    const files = await Purchase.find();
+    const department = req.query.department; // get the department from the query parameter
+    const files = await Purchase.find({ Department: department }); // use the find method with the department query
     res.json({
       files: files,
     });
@@ -424,11 +425,13 @@ const getpurchase = async (req, res) => {
     console.log(error);
   }
 };
+
 // =============================================================================
 // Get all repair data
 const getrepair = async (req, res) => {
   try {
-    const files = await Recurring.find();
+    const department = req.query.department;
+    const files = await Recurring.find({ Department: department });
     res.json({
       files: files,
     });
@@ -456,6 +459,7 @@ const formpurchase = async (req, res) => {
       Supplier_Name,
       Address,
       Contact,
+      Department,
     } = req.body;
 
     await Purchase.create({
@@ -474,6 +478,7 @@ const formpurchase = async (req, res) => {
       Supplier_Name,
       Address,
       Contact,
+      Department,
     });
 
     res.json({ message: `Data inserted in purchase database` });
@@ -499,6 +504,7 @@ const formrepair = async (req, res) => {
       Yearly_expense,
       // Address,
       // Contact,
+      Department,
     } = req.body;
 
     await Recurring.create({
@@ -514,6 +520,7 @@ const formrepair = async (req, res) => {
       Yearly_expense,
       // Address,
       // Contact,
+      Department,
     });
 
     res.json({ message: `Data inserted in recurring database` });

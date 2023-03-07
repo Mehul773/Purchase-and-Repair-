@@ -6,10 +6,24 @@ import PcSidebarRepair from "../components/PcSidebarRepair";
 
 const PcViewRepair = () => {
   const [files, setFiles] = useState([]);
-
+  const [department, setDepartment] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getrepair", { withCredentials: true })
+      .get("http://localhost:5000/pc/getme", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+      });
+  });
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getrepair", {
+        withCredentials: true,
+        params: {
+          department: department,
+        },
+      })
       .then((response) => setFiles(response.data.files));
   });
 
@@ -33,7 +47,6 @@ const PcViewRepair = () => {
                         <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                           <th className="py-3 px-6 text-center">Sr_No</th>
                           <th className="py-3 px-6 text-center">
-                            {" "}
                             Description_of_Material
                           </th>
                           <th className="py-3 px-6 text-center">
@@ -48,9 +61,9 @@ const PcViewRepair = () => {
                           </th>
                           <th className="py-3 px-6 text-center">Year</th>
                           <th className="py-3 px-6 text-center">
-                            {" "}
                             Yearly_expense
                           </th>
+                          <th className="py-3 px-6 text-center">Department</th>
                         </tr>
                       </thead>
                       {files.map((file) => (
@@ -58,44 +71,37 @@ const PcViewRepair = () => {
                           <tbody className="text-gray-600 text-sm font-light">
                             <tr className="border-b border-gray-200 hover:bg-gray-100">
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Sr_No}</div>{" "}
+                                <div>{file.Sr_No}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Description_of_Material}</div>{" "}
+                                <div>{file.Description_of_Material}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Name_Of_Supplier}</div>{" "}
+                                <div>{file.Name_Of_Supplier}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Bill_No}</div>{" "}
+                                <div>{file.Bill_No}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Date}</div>{" "}
+                                <div>{file.Date}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Amount}</div>{" "}
+                                <div>{file.Amount}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Material}</div>{" "}
+                                <div>{file.Material}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Receiving_Year}</div>{" "}
+                                <div>{file.Receiving_Year}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Year}</div>{" "}
+                                <div>{file.Year}</div>
                               </td>
                               <td className="py-3 px-6 text-center">
-                                {" "}
-                                <div>{file.Yearly_expense}</div>{" "}
+                                <div>{file.Yearly_expense}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Department}</div>
                               </td>
                             </tr>
                           </tbody>

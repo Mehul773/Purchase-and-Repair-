@@ -6,10 +6,20 @@ import { ToastContainer, toast } from "react-toastify";
 
 function PcFormPurchase() {
   const [all, setAll] = useState([]); //get all supplier name,address,contact
+  const [department, setDepartment] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
       .then((response) => setAll(response.data.supp));
+  });
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getme", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+      });
   });
   const [supplierName, setSupplierName] = useState("");
   const [supplierAddress, setSupplierAddress] = useState("");
@@ -59,6 +69,7 @@ function PcFormPurchase() {
           Supplier_Name: supplierName,
           Address: supplierAddress,
           Contact: supplierContact,
+          Department: department,
         },
         { withCredentials: true }
       )

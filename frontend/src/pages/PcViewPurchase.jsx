@@ -7,12 +7,27 @@ import PcSidebarPurchase from "../components/PcSidebarPurchase";
 
 const PcViewPurchase = () => {
   const [files, setFiles] = useState([]);
+  const [department, setDepartment] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getpurchase", { withCredentials: true })
-      .then((response) => setFiles(response.data.files));
+      .get("http://localhost:5000/pc/getme", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+      });
   });
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/pc/getpurchase`, {
+        withCredentials: true,
+        params: {
+          department: department,
+        },
+      })
+      .then((response) => setFiles(response.data.files));
+  }, [department]);
 
   return (
     <>
@@ -55,6 +70,7 @@ const PcViewPurchase = () => {
                           </th>
                           <th className="py-3 px-6 text-center">Address</th>
                           <th className="py-3 px-6 text-center">Contact</th>
+                          <th className="py-3 px-6 text-center">Department</th>
                         </tr>
                       </thead>
                       {files.map((file) => (
@@ -105,6 +121,9 @@ const PcViewPurchase = () => {
                               </td>
                               <td className="py-3 px-6 text-center">
                                 <div>{file.Contact}</div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div>{file.Department}</div>
                               </td>
                             </tr>
                           </tbody>
