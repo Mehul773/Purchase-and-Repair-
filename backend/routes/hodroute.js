@@ -12,6 +12,10 @@ const {
   getHodInfo,
   deleteHod,
   getdept,
+  getrepair,
+  getpurchase,
+  downloadfile,
+  downloadrepairfile,
 } = require("../controller/hodController");
 
 router.post("/signup", registerHod);
@@ -26,4 +30,9 @@ router.get("/getme", protectHod, getHodInfo);
 router.post("/delete", deleteHod);
 router.get("/getdept", getdept);
 
+router.get("/getpurchase", getpurchase);
+router.get("/getrepair", getrepair);
+
+router.get("/downloadfile", downloadfile);
+router.get("/downloadrepairfile", downloadrepairfile);
 module.exports = router;

@@ -90,11 +90,13 @@ function PcFormPurchase() {
       <ToastContainer />
       <HeaderPc />
       <PcSidebarPurchase />
-      <div className="title-size text-color">Form for Purchase file</div>
+      <div className="title-size text-color">
+        Upload Purchase details via form
+      </div>
       <div className="pc-form-main">
         <div className="pc-form-back">
           <div>
-            <p id="form-text">Enter details for purchase file </p>
+            <p id="form-text">Enter details of purchase</p>
             <form action="" className="box-grp">
               <input
                 className="pc-form-box"

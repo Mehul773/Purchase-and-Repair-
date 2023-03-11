@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import HeaderPc from "../components/HeaderPc";
-import PcSidebarPurchase from "../components/PcSidebarPurchase";
+import HeaderHod from "../components/HeaderHod";
+import HodSidebarPurchase from "../components/HodSidebarPurchase";
 
-const PcDownloadPurchase = () => {
+const HodDownloadPurchase = () => {
   const [department, setDepartment] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getme", {
+      .get("http://localhost:5000/hod/getme", {
         withCredentials: true,
       })
       .then((response) => {
@@ -19,7 +19,7 @@ const PcDownloadPurchase = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.get("http://localhost:5000/pc/downloadfile", {
+    const response = await axios.get("http://localhost:5000/hod/downloadfile", {
       responseType: "blob",
       params: {
         department: department,
@@ -36,8 +36,8 @@ const PcDownloadPurchase = () => {
 
   return (
     <>
-      <HeaderPc />
-      <PcSidebarPurchase />
+      <HeaderHod />
+      <HodSidebarPurchase />
       <div className="download-flex">
         <div>
           <p className="text-color text-size">Download purchase file</p>
@@ -58,4 +58,4 @@ const PcDownloadPurchase = () => {
   );
 };
 
-export default PcDownloadPurchase;
+export default HodDownloadPurchase;

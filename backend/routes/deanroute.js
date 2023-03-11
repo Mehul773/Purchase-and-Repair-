@@ -11,6 +11,10 @@ const {
   logoutDean,
   getDeanInfo,
   deleteDean,
+  downloadfile,
+  downloadrepairfile,
+  getrepair,
+  getpurchase,
 } = require("../controller/deanController");
 
 router.post("/login", loginDean);
@@ -23,5 +27,9 @@ router.get("/dashboard", protectDean, (req, res) => {
 router.get("/logout", logoutDean);
 router.get("/getme", protectDean, getDeanInfo);
 router.post("/delete", deleteDean);
+router.get("/downloadfile", downloadfile);
+router.get("/downloadrepairfile", downloadrepairfile);
+router.get("/getpurchase", getpurchase);
+router.get("/getrepair", getrepair);
 
 module.exports = router;

@@ -3,6 +3,11 @@ const bcrypt = require("bcryptjs");
 const Hod = require("../models/hodModel");
 const nodemailer = require("../config/nodemailer.config");
 const Department = require("../models/departmentModel");
+const Purchase = require("../models/purchaseModel");
+const Recurring = require("../models/recurringModel");
+const fs = require("fs");
+const path = require("path");
+const xlsx = require("xlsx");
 
 const loginHod = async (req, res) => {
   try {
@@ -191,6 +196,82 @@ const getdept = async (req, res) => {
   }
 };
 
+const downloadfile = async (req, res) => {
+  const department = req.query.department;
+  console.log("From download" + department);
+  var wb = xlsx.utils.book_new();
+  Purchase.find({ Department: department }, { _id: 0 }, (err, data) => {
+    if (err) {
+      console.log("Error : ", err);
+    } else {
+      var temp = JSON.stringify(data); // Convert JSON to Json string
+      temp = JSON.parse(temp); // Convert to object
+      var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
+      xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
+      xlsx.writeFile(
+        //Now creating new file with unique name and writing EXCEL data to it
+        wb,
+        (path1 = path.join(
+          __dirname,
+          "../../",
+          "/datafetcher/",
+          `${Date.now()}` + "test.xlsx"
+        ))
+      );
+      res.download(path1);
+    }
+  });
+};
+
+const downloadrepairfile = async (req, res) => {
+  const department = req.query.department;
+  var wb = xlsx.utils.book_new();
+  Recurring.find({ Department: department }, { _id: 0 }, (err, data) => {
+    if (err) {
+      console.log("Error : ", err);
+    } else {
+      var temp = JSON.stringify(data); // Convert JSON to Json string
+      temp = JSON.parse(temp); // Convert to object
+      var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
+      xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
+      xlsx.writeFile(
+        //Now creating new file with unique name and writing EXCEL data to it
+        wb,
+        (path1 = path.join(
+          __dirname,
+          "../../",
+          "/datafetcher/",
+          `${Date.now()}` + "test.xlsx"
+        ))
+      );
+      res.download(path1);
+    }
+  });
+};
+
+const getpurchase = async (req, res) => {
+  try {
+    const department = req.query.department; // get the department from the query parameter
+    const files = await Purchase.find({ Department: department }); // use the find method with the department query
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getrepair = async (req, res) => {
+  try {
+    const department = req.query.department;
+    const files = await Recurring.find({ Department: department });
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = {
   loginHod,
   registerHod,
@@ -200,4 +281,8 @@ module.exports = {
   getHodInfo,
   deleteHod,
   getdept,
+  getpurchase,
+  getrepair,
+  downloadfile,
+  downloadrepairfile,
 };

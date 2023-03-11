@@ -1,30 +1,32 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import HeaderPc from "../components/HeaderPc";
-import PcSidebarPurchase from "../components/PcSidebarPurchase";
+import HeaderHod from "../components/HeaderHod";
+import HodSidebarRepair from "../components/HodSidebarRepair";
 
-const PcDownloadPurchase = () => {
+const HodDownloadRepair = () => {
   const [department, setDepartment] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getme", {
+      .get("http://localhost:5000/hod/getme", {
         withCredentials: true,
       })
       .then((response) => {
         setDepartment(response.data.department);
       });
   });
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.get("http://localhost:5000/pc/downloadfile", {
-      responseType: "blob",
-      params: {
-        department: department,
-      },
-    });
+    const response = await axios.get(
+      "http://localhost:5000/hod/downloadrepairfile",
+      {
+        responseType: "blob",
+        params: {
+          department: department,
+        },
+      }
+    );
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
@@ -36,8 +38,8 @@ const PcDownloadPurchase = () => {
 
   return (
     <>
-      <HeaderPc />
-      <PcSidebarPurchase />
+      <HeaderHod />
+      <HodSidebarRepair />
       <div className="download-flex">
         <div>
           <p className="text-color text-size">Download purchase file</p>
@@ -49,7 +51,7 @@ const PcDownloadPurchase = () => {
             }}
           >
             <button type="submit" className="btn download-btn" role="button">
-              Download purchase file
+              Download Recurring File
             </button>
           </form>
         </div>
@@ -58,4 +60,4 @@ const PcDownloadPurchase = () => {
   );
 };
 
-export default PcDownloadPurchase;
+export default HodDownloadRepair;

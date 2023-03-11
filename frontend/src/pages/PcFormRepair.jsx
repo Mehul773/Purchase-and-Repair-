@@ -82,11 +82,13 @@ function PcFormRepair() {
       <ToastContainer />
       <HeaderPc />
       <PcSidebarRepair />
-      <div className="title-size text-color">Form for Recurring file</div>
+      <div className="title-size text-color">
+        Upload Recurring details via form
+      </div>
       <div className="pc-form-main">
         <div className="pc-form-back">
           <div>
-            <p id="form-text">Enter details for purchase file </p>
+            <p id="form-text">Enter details of recurring</p>
             <form action="" className="box-grp">
               <input
                 className="pc-form-box"

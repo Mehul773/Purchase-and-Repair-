@@ -1,30 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import HeaderPc from "../components/HeaderPc";
-import PcSidebarRepair from "../components/PcSidebarRepair";
+import HeaderDean from "../components/HeaderDean";
+import DeanSidebarRepair from "../components/DeanSidebarRepair";
 
-const PcDownloadRepair = () => {
-  const [department, setDepartment] = useState("");
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/pc/getme", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setDepartment(response.data.department);
-      });
-  });
+const DeanDownloadRepair = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await axios.get(
-      "http://localhost:5000/pc/downloadrepairfile",
+      "http://localhost:5000/dean/downloadrepairfile",
       {
         responseType: "blob",
-        params: {
-          department: department,
-        },
       }
     );
     const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -38,11 +23,11 @@ const PcDownloadRepair = () => {
 
   return (
     <>
-      <HeaderPc />
-      <PcSidebarRepair />
+      <HeaderDean />
+      <DeanSidebarRepair />
       <div className="download-flex">
         <div>
-          <p className="text-color text-size">Download purchase file</p>
+          <p className="text-color text-size">Download repair file</p>
         </div>
         <div>
           <form
@@ -51,7 +36,7 @@ const PcDownloadRepair = () => {
             }}
           >
             <button type="submit" className="btn download-btn" role="button">
-              Download Recurring File
+              Download repair file
             </button>
           </form>
         </div>
@@ -60,4 +45,4 @@ const PcDownloadRepair = () => {
   );
 };
 
-export default PcDownloadRepair;
+export default DeanDownloadRepair;

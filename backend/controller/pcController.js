@@ -10,7 +10,9 @@ const Recurring = require("../models/recurringModel");
 const fs = require("fs");
 const path = require("path");
 const csv = require("fast-csv");
+
 // const xlsx = require("node-xlsx");
+
 const xlsx = require("xlsx");
 const chmodr = require("chmodr");
 
@@ -62,7 +64,6 @@ const registerPc = async (req, res) => {
     if (userExists) {
       res.json({ message: "User Already Exists" });
     }
-   
 
     // Hash Password
 
@@ -227,6 +228,7 @@ const getSupplier = async (req, res) => {
     console.log(error);
   }
 };
+
 const delSupplier = async (req, res) => {
   try {
     const { supplier } = req.body;
@@ -303,8 +305,10 @@ const uploadFile = async (req, res) => {
 // -------------------------------------------------------------
 // download purchase file
 const downloadfile = async (req, res) => {
+  const department = req.query.department;
+  console.log("From download" + department);
   var wb = xlsx.utils.book_new();
-  Purchase.find({}, { _id: 0 }, (err, data) => {
+  Purchase.find({ Department: department }, { _id: 0 }, (err, data) => {
     if (err) {
       console.log("Error : ", err);
     } else {
@@ -390,8 +394,9 @@ const uploadRepairFile = async (req, res) => {
 // ------------------------------------------------------------
 // download repair file
 const downloadrepairfile = async (req, res) => {
+  const department = req.query.department;
   var wb = xlsx.utils.book_new();
-  Recurring.find({}, { _id: 0 }, (err, data) => {
+  Recurring.find({ Department: department }, { _id: 0 }, (err, data) => {
     if (err) {
       console.log("Error : ", err);
     } else {

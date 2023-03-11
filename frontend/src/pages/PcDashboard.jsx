@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import HeaderPc from "../components/HeaderPc";
 import PcSidebar from "../components/PcSidebarPurchase";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import purchase from "../Asset/purchase.png";
 import repair from "../Asset/repair.png";
 
 function PcDashboard() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/dashboard", { withCredentials: true })
+      .then((response) => {})
+      .catch((err) => navigate("/login/pc"));
+  });
   return (
     <>
       <HeaderPc />

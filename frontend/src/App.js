@@ -25,6 +25,16 @@ import PcFormRepair from "./pages/PcFormRepair";
 import PcAddSupplierPurchase from "./pages/PcAddSupplierPurchase";
 import PcAddSupplierRepair from "./pages/PcAddSupplierRepair";
 
+import DeanDownloadPurchase from "./pages/DeanDownloadPurchase";
+import DeanDownloadRepair from "./pages/DeanDownloadRepair";
+import DeanViewPurchase from "./pages/DeanViewPurchase";
+import DeanViewRepair from "./pages/DeanViewRepair";
+
+import HodDownloadPurchase from "./pages/HodDownloadPurchase";
+import HodDownloadRepair from "./pages/HodDownloadRepair";
+import HodViewPurchase from "./pages/HodViewPurchase";
+import HodViewRepair from "./pages/HodViewRepair";
+
 function App() {
   return (
     <>
@@ -89,6 +99,32 @@ function App() {
               element={<PcFormPurchase />}
             ></Route>
             <Route path="/pc/repair/form" element={<PcFormRepair />}></Route>
+
+            {/* dean*/}
+
+            <Route path="/dean/purchase" element={<DeanViewPurchase />}></Route>
+            <Route path="/dean/repair" element={<DeanViewRepair />}></Route>
+
+            <Route
+              path="/dean/purchase/download"
+              element={<DeanDownloadPurchase />}
+            ></Route>
+            <Route
+              path="/dean/repair/download"
+              element={<DeanDownloadRepair />}
+            ></Route>
+
+            <Route path="/hod/purchase" element={<HodViewPurchase />}></Route>
+            <Route path="/hod/repair" element={<HodViewRepair />}></Route>
+
+            <Route
+              path="/hod/purchase/download"
+              element={<HodDownloadPurchase />}
+            ></Route>
+            <Route
+              path="/hod/repair/download"
+              element={<HodDownloadRepair />}
+            ></Route>
           </Routes>
         </div>
       </Router>
