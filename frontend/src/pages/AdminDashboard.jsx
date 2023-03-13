@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import HeaderAdmin from "../components/HeaderAdmin";
@@ -19,7 +21,7 @@ function AdminDashboard() {
   const [addDept, setAddDept] = useState(false);
 
   const [dept, setDept] = useState("");
-  const [all, setAll] = useState([]);//get all departments
+  const [all, setAll] = useState([]); //get all departments
 
   useEffect(() => {
     axios
@@ -37,7 +39,11 @@ function AdminDashboard() {
         },
         { withCredentials: true }
       )
-      .then((response) => {})
+      .then((response) => {
+        if (response.data.message === "Duplicate") {
+          toast.error("Department already exist");
+        }
+      })
       .catch((error) => {
         console.log("Error is " + error);
       });
@@ -59,6 +65,7 @@ function AdminDashboard() {
   return (
     <>
       <HeaderAdmin />
+      <ToastContainer />
       <IconContext.Provider value={{ color: "#00935A" }}>
         <div className="navbar">
           <Link to="#" className="menu-bars">

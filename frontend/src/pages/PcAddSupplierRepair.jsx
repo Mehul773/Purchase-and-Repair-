@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { TiDelete } from "react-icons/ti";
 import HeaderPc from "../components/HeaderPc";
 import PcSidebarRepair from "../components/PcSidebarRepair";
@@ -28,7 +30,11 @@ function PcAddSupplierRepair() {
         },
         { withCredentials: true }
       )
-      .then((response) => {})
+      .then((response) => {
+        if (response.data.message === "Duplicate") {
+          toast.error("Supplier already exist");
+        }
+      })
       .catch((error) => {
         console.log("Error is " + error);
       });
@@ -50,6 +56,7 @@ function PcAddSupplierRepair() {
   return (
     <>
       <HeaderPc />
+      <ToastContainer />
       <PcSidebarRepair />
       <div className="main">
         <div className="main-left">

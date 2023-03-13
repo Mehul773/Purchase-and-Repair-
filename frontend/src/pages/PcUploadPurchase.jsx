@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import logo from "../Asset/fileupload.png";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,6 +8,18 @@ import PcSidebarPurchase from "../components/PcSidebarPurchase";
 import { Link } from "react-router-dom";
 const PcUploadPurchase = () => {
   const [file, setFile] = useState();
+  const [department, setDepartment] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getme", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+        console.log("setting" + response.data.department);
+      });
+  });
 
   const handleChange = (event) => {
     // console.log(event.target);
@@ -27,9 +39,15 @@ const PcUploadPurchase = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        params: { department: department },
       })
-      .then(() => {
-        toast.success("Successfully uploaded");
+      .then((response) => {
+        console.log(response);
+        if (response.data.message === "Please reload the page") {
+          toast.error("Please reload the page");
+        } else {
+          toast.success("Successfully uploaded");
+        }
       })
       .catch(() => {
         toast.error("Failure");

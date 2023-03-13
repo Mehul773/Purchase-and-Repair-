@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/adminModel");
 const Department = require("../models/departmentModel");
+const Hod = require("../models/hodModel");
+const Pc = require("../models/pcModel");
 
 const loginAdmin = async (req, res) => {
   try {
@@ -113,6 +115,7 @@ const addDepartment = async (req, res) => {
 
     res.json({ message: `Department added + ${department}` });
   } catch (error) {
+    res.json({ message: "Duplicate" });
     console.log(error);
   }
 };
@@ -131,6 +134,20 @@ const delDept = async (req, res) => {
   try {
     const { department } = req.body;
     const dept = await Department.findOne({ department });
+    const hod = await Hod.find({ department: dept.department }).deleteMany();
+    const pc = await Pc.find({ department: dept.department }).deleteMany();
+    console.log(typeof pc);
+    if (!pc) {
+      res.status(400);
+      console.log("Pc not found to be deleted");
+    }
+    if (!hod) {
+      res.status(400);
+      console.log("Hod not found to be deleted");
+    }
+    /* await pc.remove(); */
+    /* await hod.deleteMany(); */
+
     if (!dept) {
       return res.status(400).json({ message: "Department not found" });
     }

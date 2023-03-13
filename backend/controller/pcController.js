@@ -214,6 +214,7 @@ const addSupplier = async (req, res) => {
 
     res.json({ message: `Supplier added + ${supplier}` });
   } catch (error) {
+    res.json({ message: "Duplicate" });
     console.log(error);
   }
 };
@@ -247,58 +248,87 @@ const delSupplier = async (req, res) => {
 // ===========================================================================
 // upload purchase file
 const uploadFile = async (req, res) => {
-  const files = [];
-  try {
-    if (Array.isArray(req.files.uploads) && req.files.uploads.length > 0) {
-      //checking if req.files.uploads is array and it exist or not
-      for (let file of req.files.uploads) {
-        files.push(file); //pushing each file into files array
-      }
-    }
-  } catch (error) {
-    return res.status(401).json({ message: "File Array not Uploaded" });
-  }
-
-  for (var k = 0; k < files.length; k++) {
-    //loop to iterate through all files in files array
-    console.log(files[k].filename);
-    //for pushing json to database
+  const department = req.query.department;
+  if (department === "") {
+    res.send({ message: "Please reload the page" });
+  } else {
+    const files = [];
     try {
-      // console.log(process.cwd()); F:\mehul study\React\sdp project\Purchase and Repair
-      const path1 = path.join(
-        __dirname,
-        "../../",
-        "/public/files/" + files[k].filename
-      );
-      // console.log(path1); F:\mehul study\React\sdp project\Purchase and Repair\public\files\1677520009765new.xlsx
-      let xlFile = xlsx.readFile(path1);
-      let sheet = xlFile.Sheets[xlFile.SheetNames[0]];
-      const P_JSON = xlsx.utils.sheet_to_json(sheet);
-      try {
-        await Purchase.insertMany(P_JSON);
-        res.status(200).json({ message: "Data entered successfully" });
-      } catch (error) {
-        res.send({ message: "Duplicate key found" });
+      if (Array.isArray(req.files.uploads) && req.files.uploads.length > 0) {
+        //checking if req.files.uploads is array and it exist or not
+        for (let file of req.files.uploads) {
+          files.push(file); //pushing each file into files array
+        }
       }
-
-      chmodr("./", 0o777, (err) => {
-        //giving permission to read,write and execute to current folder
-        if (err) {
-          console.log("Failed to execute chmod", err);
-        } else {
-        }
-      });
-
-      fs.rmSync("./public/files", { recursive: true, force: true }); // deleting files folder for saving space
     } catch (error) {
-      chmodr("./", 0o777, (err) => {
-        if (err) {
-          console.log("Failed to execute chmod", err);
-        } else {
+      return res.status(401).json({ message: "File Array not Uploaded" });
+    }
+
+    for (var k = 0; k < files.length; k++) {
+      //loop to iterate through all files in files array
+      console.log(files[k].filename);
+      //for pushing json to database
+      try {
+        // console.log(process.cwd()); F:\mehul study\React\sdp project\Purchase and Repair
+        const path1 = path.join(
+          __dirname,
+          "../../",
+          "/public/files/" + files[k].filename
+        );
+        // console.log(path1); F:\mehul study\React\sdp project\Purchase and Repair\public\files\1677520009765new.xlsx
+        let xlFile = xlsx.readFile(path1);
+        let sheet = xlFile.Sheets[xlFile.SheetNames[0]];
+        const P_JSON = xlsx.utils.sheet_to_json(sheet);
+        console.log(P_JSON.length);
+
+        for (var p = 0; p < P_JSON.length; p++) {
+          console.log(p);
+          console.log("name is " + P_JSON[p].Supplier_Name);
+          if (
+            P_JSON[p].Supplier_Name != "" &&
+            P_JSON[p].Supplier_Name !== undefined
+          ) {
+            try {
+              await Supplier.create({
+                supplier: P_JSON[p].Supplier_Name,
+                address: P_JSON[p].Address,
+                contact: P_JSON[p].Contact,
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }
+
+          P_JSON[p].Department = department;
+          console.log(P_JSON[p].Department);
         }
-      });
-      console.log(error);
-      fs.rmSync("./public/files", { recursive: true, force: true });
+        try {
+          await Purchase.insertMany(P_JSON, { ordered: false });
+          res.status(200).json({ message: "Data entered successfully" });
+        } catch (error) {
+          console.log(error);
+          res.send({ message: "Duplicate key found" });
+        }
+
+        chmodr("./", 0o777, (err) => {
+          //giving permission to read,write and execute to current folder
+          if (err) {
+            console.log("Failed to execute chmod", err);
+          } else {
+          }
+        });
+
+        fs.rmSync("./public/files", { recursive: true, force: true }); // deleting files folder for saving space
+      } catch (error) {
+        chmodr("./", 0o777, (err) => {
+          if (err) {
+            console.log("Failed to execute chmod", err);
+          } else {
+          }
+        });
+        console.log("Hi " + error);
+        fs.rmSync("./public/files", { recursive: true, force: true });
+      }
     }
   }
 };
@@ -308,32 +338,40 @@ const downloadfile = async (req, res) => {
   const department = req.query.department;
   console.log("From download" + department);
   var wb = xlsx.utils.book_new();
-  Purchase.find({ Department: department }, { _id: 0 }, (err, data) => {
-    if (err) {
-      console.log("Error : ", err);
-    } else {
-      var temp = JSON.stringify(data); // Convert JSON to Json string
-      temp = JSON.parse(temp); // Convert to object
-      var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
-      xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
-      xlsx.writeFile(
-        //Now creating new file with unique name and writing EXCEL data to it
-        wb,
-        (path1 = path.join(
-          __dirname,
-          "../../",
-          "/datafetcher/",
-          `${Date.now()}` + "test.xlsx"
-        ))
-      );
-      res.download(path1);
+  Purchase.find(
+    { Department: department },
+    { _id: 0, Department: 0 },
+    (err, data) => {
+      if (err) {
+        console.log("Error : ", err);
+      } else {
+        // delete data["Department"];
+        console.log(data);
+        var temp = JSON.stringify(data); // Convert JSON to Json string
+        temp = JSON.parse(temp); // Convert to object
+        var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
+        xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
+        xlsx.writeFile(
+          //Now creating new file with unique name and writing EXCEL data to it
+          wb,
+          (path1 = path.join(
+            __dirname,
+            "../../",
+            "/datafetcher/",
+            `${Date.now()}` + "test.xlsx"
+          ))
+        );
+        res.download(path1);
+      }
     }
-  });
+  );
 };
 
 // ==============================================================
 // Upload repair file
 const uploadRepairFile = async (req, res) => {
+  const department = req.query.department;
+  console.log("Department from upload" + department);
   const files = [];
   try {
     if (Array.isArray(req.files.uploads) && req.files.uploads.length > 0) {
@@ -361,8 +399,28 @@ const uploadRepairFile = async (req, res) => {
       let xlFile = xlsx.readFile(path1);
       let sheet = xlFile.Sheets[xlFile.SheetNames[0]];
       const P_JSON = xlsx.utils.sheet_to_json(sheet);
+      console.log(P_JSON.length);
+      for (var p = 0; p < P_JSON.length; p++) {
+        console.log(p);
+        if (
+          P_JSON[p].Name_Of_Supplier != "" &&
+          P_JSON[p].Name_Of_Supplier !== undefined
+        ) {
+          try {
+            await Supplier.create({
+              supplier: P_JSON[p].Name_Of_Supplier,
+              address: "",
+              contact: "",
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        }
+        P_JSON[p].Department = department;
+        console.log(P_JSON[p].Department);
+      }
       try {
-        await Recurring.insertMany(P_JSON);
+        await Recurring.insertMany(P_JSON, { ordered: false });
         res
           .status(200)
           .json({ message: "Data entered successfully for recurring file" });
@@ -396,27 +454,31 @@ const uploadRepairFile = async (req, res) => {
 const downloadrepairfile = async (req, res) => {
   const department = req.query.department;
   var wb = xlsx.utils.book_new();
-  Recurring.find({ Department: department }, { _id: 0 }, (err, data) => {
-    if (err) {
-      console.log("Error : ", err);
-    } else {
-      var temp = JSON.stringify(data); // Convert JSON to Json string
-      temp = JSON.parse(temp); // Convert to object
-      var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
-      xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
-      xlsx.writeFile(
-        //Now creating new file with unique name and writing EXCEL data to it
-        wb,
-        (path1 = path.join(
-          __dirname,
-          "../../",
-          "/datafetcher/",
-          `${Date.now()}` + "test.xlsx"
-        ))
-      );
-      res.download(path1);
+  Recurring.find(
+    { Department: department },
+    { _id: 0, Department: 0 },
+    (err, data) => {
+      if (err) {
+        console.log("Error : ", err);
+      } else {
+        var temp = JSON.stringify(data); // Convert JSON to Json string
+        temp = JSON.parse(temp); // Convert to object
+        var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
+        xlsx.utils.book_append_sheet(wb, ws, "sheet1"); //Append sheets into wb
+        xlsx.writeFile(
+          //Now creating new file with unique name and writing EXCEL data to it
+          wb,
+          (path1 = path.join(
+            __dirname,
+            "../../",
+            "/datafetcher/",
+            `${Date.now()}` + "test.xlsx"
+          ))
+        );
+        res.download(path1);
+      }
     }
-  });
+  );
 };
 // =============================================================================
 // Get all purchase data

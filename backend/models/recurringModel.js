@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const recurring = mongoose.Schema(
   {
-    Sr_No: { type: String, default: "" },
-    Purchase_Recurring: { type: String, default: "Recurring" },
+    Sr_No: { type: String, unique: true },
     Description_of_Material: { type: String, default: "" },
     Name_Of_Supplier: { type: String, default: "" },
     Bill_No: { type: String, default: "" },
