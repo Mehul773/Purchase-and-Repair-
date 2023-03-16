@@ -504,3 +504,25 @@ span {
   border-radius: 8px;
   width: 500px;
 }
+.loading {
+  display: inline-block;
+  margin: 100px auto;
+}
+/* =========================================================== */
+/* search  */
+
+.white {
+  color: white;
+}
+.search-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  margin: 0;
+  /* border: 2px solid white; */
+}
+.try {
+  border: 2px solid white;
+}

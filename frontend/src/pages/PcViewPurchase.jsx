@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import HeaderPc from "../components/HeaderPc";
 import PcSidebarPurchase from "../components/PcSidebarPurchase";
+import { Oval } from "react-loader-spinner";
 
 const PcViewPurchase = () => {
   const [files, setFiles] = useState([]);
@@ -16,6 +17,7 @@ const PcViewPurchase = () => {
   const [po_no, setPO_no] = useState("");
   const [supplier, setSupplier] = useState("");
   const [all, setAll] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const Search = () => {
     console.log(sr_no);
@@ -37,6 +39,7 @@ const PcViewPurchase = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:5000/pc/getsupp", {
         withCredentials: true,
@@ -65,6 +68,7 @@ const PcViewPurchase = () => {
       })
       .then((response) => {
         setFiles(response.data.files);
+        setLoading(false);
       });
   }, [
     department,
@@ -77,72 +81,13 @@ const PcViewPurchase = () => {
     supplier,
   ]);
 
-  /*   useEffect(() => {
-    axios
-      .all([
-        axios.get("http://localhost:5000/pc/getsupp", {
-          withCredentials: true,
-        }),
-        axios.get("http://localhost:5000/pc/getme", {
-          withCredentials: true,
-        }),
-        axios.get(`http://localhost:5000/pc/searchpurchase`, {
-          withCredentials: true,
-          params: {
-            department: department,
-            sr_no: sr_no,
-            price: price,
-            academic_year: academic_year,
-            description: description,
-            bill_no: bill_no,
-            po_no: po_no,
-            supplier: supplier,
-          },
-        }),
-      ])
-      .then(
-        axios.spread((res1, res2, res3) => {
-          setAll(res1.data.supp);
-          setDepartment(res2.data.department);
-          setFiles(res3.data.files);
-        })
-      );
-  }, [department, sr_no]); */
-
-  /*   useEffect(() => {
-    axios
-      .get("http://localhost:5000/pc/getme", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setDepartment(response.data.department);
-      });
-  }, [department]);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/pc/searchpurchase`, {
-        withCredentials: true,
-        params: {
-          department: department,
-                    sr_no: sr_no,
-          price: price,
-          academic_year: academic_year,
-          description: description,
-          bill_no: bill_no,
-          po_no: po_no,
-          supplier: supplier,
-        },
-      })
-      .then((response) => setFiles(response.data.files));
-  }, [department]); */
-
   return (
     <>
       <div>
         <HeaderPc />
         <PcSidebarPurchase />
         <div className="title-size text-color">Purchase data</div>
-        <div>
+        <div className="">
           <input
             className="form-box-sm"
             type="text"
@@ -153,6 +98,7 @@ const PcViewPurchase = () => {
               setSr_No(event.target.value);
             }}
           ></input>
+
           <input
             className="form-box-sm"
             type="text"
@@ -163,6 +109,7 @@ const PcViewPurchase = () => {
               setPrice(event.target.value);
             }}
           ></input>
+
           <input
             className="form-box-sm"
             type="text"
@@ -225,102 +172,123 @@ const PcViewPurchase = () => {
           <div>
             <p className="text-color title-size"></p>
           </div>
-          <div className="container table">
-            <div className="overflow-x-auto">
-              <div>
-                <div className="w-full">
-                  <div className="shadow-md rounded my-5">
-                    <table className="min-w-max bg-white w-full table-auto">
-                      <thead>
-                        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                          <th className="py-3 px-6 text-center">Sr_No</th>
-                          <th className="py-3 px-6 text-center">
-                            Academic_Year
-                          </th>
-                          <th className="py-3 px-6 text-center">Item</th>
-                          <th className="py-3 px-6 text-center">Description</th>
-                          <th className="py-3 px-6 text-center">Quantity</th>
-                          <th className="py-3 px-6 text-center">
-                            Total_Quantity
-                          </th>
-                          <th className="py-3 px-6 text-center">Price</th>
-                          <th className="py-3 px-6 text-center">Total</th>
-                          <th className="py-3 px-6 text-center">Bill_No</th>
-                          <th className="py-3 px-6 text-center">
-                            Invoice_Date
-                          </th>
-                          <th className="py-3 px-6 text-center">PO_No</th>
-                          <th className="py-3 px-6 text-center">PO_Date</th>
-                          <th className="py-3 px-6 text-center">
-                            Supplier_Name
-                          </th>
-                          <th className="py-3 px-6 text-center">Address</th>
-                          <th className="py-3 px-6 text-center">Contact</th>
-                          <th className="py-3 px-6 text-center">Department</th>
-                        </tr>
-                      </thead>
-                      {files.map((file) => (
-                        <>
-                          <tbody className="text-gray-600 text-sm font-light">
-                            <tr className="border-b border-gray-200 hover:bg-gray-100">
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Sr_No}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Academic_Year}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Item}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Description}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Quantity}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Total_Quantity}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Price}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Total}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Bill_No}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Invoice_Date}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.PO_No}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.PO_Date}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Supplier_Name}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Address}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Contact}</div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div>{file.Department}</div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </>
-                      ))}
-                    </table>
+          {loading ? (
+            <div className="loading">
+              <Oval
+                height={40}
+                width={40}
+                color="#ffffff"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="gray"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            </div>
+          ) : (
+            <div className="container table">
+              <div className="overflow-x-auto">
+                <div>
+                  <div className="w-full">
+                    <div className="shadow-md rounded my-5">
+                      <table className="min-w-max bg-white w-full table-auto">
+                        <thead>
+                          <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th className="py-3 px-6 text-center">Sr_No</th>
+                            <th className="py-3 px-6 text-center">
+                              Academic_Year
+                            </th>
+                            <th className="py-3 px-6 text-center">Item</th>
+                            <th className="py-3 px-6 text-center">
+                              Description
+                            </th>
+                            <th className="py-3 px-6 text-center">Quantity</th>
+                            <th className="py-3 px-6 text-center">
+                              Total_Quantity
+                            </th>
+                            <th className="py-3 px-6 text-center">Price</th>
+                            <th className="py-3 px-6 text-center">Total</th>
+                            <th className="py-3 px-6 text-center">Bill_No</th>
+                            <th className="py-3 px-6 text-center">
+                              Invoice_Date
+                            </th>
+                            <th className="py-3 px-6 text-center">PO_No</th>
+                            <th className="py-3 px-6 text-center">PO_Date</th>
+                            <th className="py-3 px-6 text-center">
+                              Supplier_Name
+                            </th>
+                            <th className="py-3 px-6 text-center">Address</th>
+                            <th className="py-3 px-6 text-center">Contact</th>
+                            <th className="py-3 px-6 text-center">
+                              Department
+                            </th>
+                          </tr>
+                        </thead>
+                        {files.map((file) => (
+                          <>
+                            <tbody className="text-gray-600 text-sm font-light">
+                              <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Sr_No}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Academic_Year}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Item}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Description}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Quantity}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Total_Quantity}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Price}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Total}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Bill_No}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Invoice_Date}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.PO_No}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.PO_Date}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Supplier_Name}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Address}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Contact}</div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                  <div>{file.Department}</div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </>
+                        ))}
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
