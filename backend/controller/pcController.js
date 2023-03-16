@@ -282,8 +282,16 @@ const uploadFile = async (req, res) => {
         console.log(P_JSON.length);
 
         for (var p = 0; p < P_JSON.length; p++) {
-          console.log(p);
-          console.log("name is " + P_JSON[p].Supplier_Name);
+          var date = new Date((P_JSON[p].Invoice_Date - 25569) * 86400 * 1000);
+          var formattedDate = date.toLocaleDateString("en-GB");
+
+          P_JSON[p].Invoice_Date = formattedDate;
+
+          date = new Date((P_JSON[p].PO_Date - 25569) * 86400 * 1000);
+          formattedDate = date.toLocaleDateString("en-GB");
+
+          P_JSON[p].PO_Date = formattedDate;
+
           if (
             P_JSON[p].Supplier_Name != "" &&
             P_JSON[p].Supplier_Name !== undefined
@@ -401,7 +409,16 @@ const uploadRepairFile = async (req, res) => {
       const P_JSON = xlsx.utils.sheet_to_json(sheet);
       console.log(P_JSON.length);
       for (var p = 0; p < P_JSON.length; p++) {
-        console.log(p);
+        var date = new Date((P_JSON[p].Date - 25569) * 86400 * 1000);
+        var formattedDate = date.toLocaleDateString("en-US");
+
+        P_JSON[p].Date = formattedDate;
+        console.log("Recurring date" + P_JSON[p].Receivng_date);
+        date = new Date((P_JSON[p].Receivng_date - 25569) * 86400 * 1000);
+        console.log("Recurring date" + date);
+        formattedDate = date.toLocaleDateString("en-US");
+
+        P_JSON[p].Receivng_date = formattedDate;
         if (
           P_JSON[p].Name_Of_Supplier != "" &&
           P_JSON[p].Name_Of_Supplier !== undefined
@@ -597,6 +614,56 @@ const formrepair = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  const department = req.query.department;
+  const sr_no = req.query.sr_no;
+  const price = req.query.price;
+  const academic_year = req.query.academic_year;
+  const description = req.query.description;
+  const bill_no = req.query.bill_no;
+  const po_no = req.query.po_no;
+  const supplier = req.query.supplier;
+
+  const query = {};
+  if (sr_no) {
+    query.Sr_No = sr_no;
+  }
+  if (department) {
+    query.Department = department;
+  }
+  if (price) {
+    query.Price = price;
+  }
+  if (academic_year) {
+    query.Academic_Year = academic_year;
+  }
+
+  if (description) {
+    query.Description = description;
+  }
+
+  if (bill_no) {
+    query.Bill_No = bill_no;
+  }
+
+  if (po_no) {
+    query.PO_No = po_no;
+  }
+
+  if (supplier) {
+    query.Supplier_Name = supplier;
+  }
+
+  try {
+    const files = await Purchase.find(query);
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   loginPc,
   registerPc,
@@ -617,4 +684,5 @@ module.exports = {
   getrepair,
   formpurchase,
   formrepair,
+  search,
 };

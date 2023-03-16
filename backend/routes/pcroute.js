@@ -27,6 +27,7 @@ const {
   getrepair,
   formpurchase,
   formrepair,
+  search,
 } = require("../controller/pcController");
 
 router.post("/signup", registerPc);
@@ -47,14 +48,16 @@ router.post("/deletesupp", delSupplier);
 router.get("/getpurchase", getpurchase);
 router.get("/getrepair", getrepair);
 
-router.post("/formpurchase",formpurchase)
-router.post("/formrepair",formrepair)
+router.post("/formpurchase", formpurchase);
+router.post("/formrepair", formrepair);
+
+router.get("/search", search);
 // ===============================================================================
-// upload purchase file 
+// upload purchase file
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //providing destination to store file
-    // console.log(process.cwd()); 
+    // console.log(process.cwd());
 
     if (!fs.existsSync("public")) {
       //if public folder in file system exist ?
@@ -86,7 +89,7 @@ const upload = multer({
 });
 
 router.post(
-  "/uploadfile",//For upload purchase file
+  "/uploadfile", //For upload purchase file
   upload.fields([
     //upload.fiels and not uploads.single because we wanted to upload multiple file at once
     {
@@ -97,15 +100,15 @@ router.post(
   uploadFile
 );
 //----------------------------------------------------------------
-// download purchase file 
-router.get("/downloadfile", downloadfile);//For download repair file
+// download purchase file
+router.get("/downloadfile", downloadfile); //For download repair file
 
 //========================================================================
-// Upload repair file 
+// Upload repair file
 const storage1 = multer.diskStorage({
   destination: function (req, file, cb) {
     //providing destination to store file
-    // console.log(process.cwd()); 
+    // console.log(process.cwd());
 
     if (!fs.existsSync("public")) {
       //if public folder in file system exist ?
@@ -149,8 +152,7 @@ router.post(
 );
 
 //----------------------------------------------------------------
-// download repair  file 
+// download repair  file
 router.get("/downloadrepairfile", downloadrepairfile);
-
 
 module.exports = router;

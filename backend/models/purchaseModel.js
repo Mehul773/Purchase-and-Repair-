@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const purchase = mongoose.Schema(
   {
-    Sr_No: { type: String, unique: true },
+    Sr_No: { type: String, unique: true, required: true },
     Purchase_Recurring: { type: String, default: "Purchase" },
     Academic_Year: { type: String, default: "" },
     Item: { type: String, default: "" },

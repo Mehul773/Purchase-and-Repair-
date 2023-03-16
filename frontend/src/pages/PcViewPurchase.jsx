@@ -8,6 +8,60 @@ import PcSidebarPurchase from "../components/PcSidebarPurchase";
 const PcViewPurchase = () => {
   const [files, setFiles] = useState([]);
   const [department, setDepartment] = useState("");
+  const [sr_no, setSr_No] = useState("");
+  const [price, setPrice] = useState("");
+  const [academic_year, setAcademicYear] = useState("");
+  const [description, setDescription] = useState("");
+  const [bill_no, setBill_no] = useState("");
+  const [po_no, setPO_no] = useState("");
+  const [supplier, setSupplier] = useState("");
+  const [all, setAll] = useState([]);
+
+  const Search = () => {
+    axios
+      .get(`http://localhost:5000/pc/search`, {
+        withCredentials: true,
+        params: {
+          department: department,
+          sr_no: sr_no,
+          price: price,
+          academic_year: academic_year,
+          description: description,
+          bill_no: bill_no,
+          po_no: po_no,
+          supplier: supplier,
+        },
+      })
+      .then((response) => setFiles(response.data.files));
+  };
+
+  useEffect(() => {
+    Search();
+  }, [sr_no]);
+  useEffect(() => {
+    Search();
+  }, [price]);
+  useEffect(() => {
+    Search();
+  }, [academic_year]);
+  useEffect(() => {
+    Search();
+  }, [description]);
+  useEffect(() => {
+    Search();
+  }, [bill_no]);
+  useEffect(() => {
+    Search();
+  }, [po_no]);
+  useEffect(() => {
+    Search();
+  }, [supplier]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
+      .then((response) => setAll(response.data.supp));
+  });
 
   useEffect(() => {
     axios
@@ -20,10 +74,17 @@ const PcViewPurchase = () => {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/pc/getpurchase`, {
+      .get(`http://localhost:5000/pc/search`, {
         withCredentials: true,
         params: {
           department: department,
+          sr_no: sr_no,
+          price: price,
+          academic_year: academic_year,
+          description: description,
+          bill_no: bill_no,
+          po_no: po_no,
+          supplier: supplier,
         },
       })
       .then((response) => setFiles(response.data.files));
@@ -35,6 +96,93 @@ const PcViewPurchase = () => {
         <HeaderPc />
         <PcSidebarPurchase />
         <div className="title-size text-color">Purchase data</div>
+        <div>
+          <input
+            className="form-box"
+            type="text"
+            name="sr_no"
+            placeholder="Enter sr_no"
+            value={sr_no}
+            onChange={(event) => {
+              setSr_No(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box"
+            type="text"
+            name="price"
+            placeholder="Enter Price"
+            value={price}
+            onChange={(event) => {
+              setPrice(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box"
+            type="text"
+            name="academic_year"
+            placeholder="Enter Academic Year in yyyy-yy fromat"
+            value={academic_year}
+            onChange={(event) => {
+              setAcademicYear(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box"
+            type="text"
+            name="description"
+            placeholder="Enter Description"
+            value={description}
+            onChange={(event) => {
+              setDescription(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box"
+            type="text"
+            name="bill_no"
+            placeholder="Enter Bill no."
+            value={bill_no}
+            onChange={(event) => {
+              setBill_no(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box"
+            type="text"
+            name="po_no"
+            placeholder="Enter PO No."
+            value={po_no}
+            onChange={(event) => {
+              setPO_no(event.target.value);
+            }}
+          ></input>
+          <select
+            className="form-dropdown"
+            value={supplier}
+            onChange={(event) => {
+              // console.log(event.target.value);
+              if (event.target.value === "Select supplier") {
+                setSupplier("");
+              } else {
+                setSupplier(event.target.value);
+              }
+            }}
+          >
+            <option>Select supplier</option>
+            {all.map((supp) => (
+              <option key={supp.supplier}>{supp.supplier}</option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="form-box"
+            id="submit-btn"
+            onClick={Search}
+          >
+            Search
+          </button>
+        </div>
         <div className="min-h-screen">
           <div>
             <p className="text-color title-size"></p>

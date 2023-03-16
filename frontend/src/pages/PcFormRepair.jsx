@@ -145,7 +145,7 @@ function PcFormRepair() {
               <input
                 className="pc-form-box"
                 type="text"
-                placeholder="Enter Date"
+                placeholder="Enter Date in dd/mm/yyyy fromat"
                 name="Date"
                 value={formData.Date}
                 onChange={handleInputChange}
@@ -172,7 +172,7 @@ function PcFormRepair() {
               <input
                 className="pc-form-box"
                 type="text"
-                placeholder="Enter Receiving Year"
+                placeholder="Enter Receiving Date in dd/mm/yyyy format"
                 name="Receiving_Year"
                 value={formData.Receiving_Year}
                 onChange={handleInputChange}

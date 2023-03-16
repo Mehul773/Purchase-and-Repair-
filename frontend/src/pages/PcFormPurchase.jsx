@@ -182,7 +182,7 @@ function PcFormPurchase() {
               <input
                 className="pc-form-box"
                 type="text"
-                placeholder="Enter Invoice_Date"
+                placeholder="Enter Invoice_Date in dd/mm/yyyy format"
                 name="Invoice_Date"
                 value={formData.Invoice_Date}
                 onChange={handleInputChange}
@@ -200,7 +200,7 @@ function PcFormPurchase() {
               <input
                 className="pc-form-box"
                 type="text"
-                placeholder="Enter PO_Date"
+                placeholder="Enter PO_Date in dd/mm/yyyy format"
                 name="PO_Date"
                 value={formData.PO_Date}
                 onChange={handleInputChange}
