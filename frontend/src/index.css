@@ -184,6 +184,28 @@ ul .left-li-div {
   width: 320px;
 }
 
+.form-box-sm {
+  font-size: 12px;
+  background-color: #56dca8;
+  text-align: center;
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  width: 150px;
+}
+
+.form-dropdown-sm {
+  font-size: 12px;
+  background-color: #56dca8;
+  text-align: center;
+  border: 1px solid black;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 150px;
+}
+
 .department-textf {
   background-color: #56dca8;
   text-align: center;
@@ -301,7 +323,7 @@ input:focus::placeholder {
   top: 0;
   width: 100%;
   z-index: 1000;*/
-} 
+}
 .navbar-right {
   margin-right: 16px;
 }

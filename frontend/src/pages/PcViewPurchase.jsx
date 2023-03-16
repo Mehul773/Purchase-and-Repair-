@@ -19,7 +19,7 @@ const PcViewPurchase = () => {
 
   const Search = () => {
     axios
-      .get(`http://localhost:5000/pc/search`, {
+      .get(`http://localhost:5000/pc/searchpurchase`, {
         withCredentials: true,
         params: {
           department: department,
@@ -98,7 +98,7 @@ const PcViewPurchase = () => {
         <div className="title-size text-color">Purchase data</div>
         <div>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="sr_no"
             placeholder="Enter sr_no"
@@ -108,7 +108,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="price"
             placeholder="Enter Price"
@@ -118,7 +118,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="academic_year"
             placeholder="Enter Academic Year in yyyy-yy fromat"
@@ -128,7 +128,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="description"
             placeholder="Enter Description"
@@ -138,7 +138,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="bill_no"
             placeholder="Enter Bill no."
@@ -148,7 +148,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <input
-            className="form-box"
+            className="form-box-sm"
             type="text"
             name="po_no"
             placeholder="Enter PO No."
@@ -158,7 +158,7 @@ const PcViewPurchase = () => {
             }}
           ></input>
           <select
-            className="form-dropdown"
+            className="form-dropdown-sm"
             value={supplier}
             onChange={(event) => {
               // console.log(event.target.value);
@@ -174,14 +174,6 @@ const PcViewPurchase = () => {
               <option key={supp.supplier}>{supp.supplier}</option>
             ))}
           </select>
-          <button
-            type="submit"
-            className="form-box"
-            id="submit-btn"
-            onClick={Search}
-          >
-            Search
-          </button>
         </div>
         <div className="min-h-screen">
           <div>

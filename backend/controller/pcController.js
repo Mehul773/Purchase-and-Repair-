@@ -614,7 +614,7 @@ const formrepair = async (req, res) => {
   }
 };
 
-const search = async (req, res) => {
+const searchPurchase = async (req, res) => {
   const department = req.query.department;
   const sr_no = req.query.sr_no;
   const price = req.query.price;
@@ -654,8 +654,54 @@ const search = async (req, res) => {
     query.Supplier_Name = supplier;
   }
 
+  const options = {
+    collation: { locale: "en", strength: 2 },
+  };
+
   try {
-    const files = await Purchase.find(query);
+    const files = await Purchase.find(query, null, options);
+    res.json({
+      files: files,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const searchRepair = async (req, res) => {
+  Purchase.find({ $text: { $search: "coffee", $caseSensitive: false } });
+  const department = req.query.department;
+  const sr_no = req.query.sr_no;
+  const academic_year = req.query.academic_year;
+  const bill_no = req.query.bill_no;
+  const supplier = req.query.supplier;
+
+  const query = {};
+  if (sr_no) {
+    query.Sr_No = sr_no;
+  }
+  if (department) {
+    query.Department = department;
+  }
+  if (academic_year) {
+    query.Year = academic_year;
+  }
+
+  if (bill_no) {
+    query.Bill_No = bill_no;
+  }
+
+  if (supplier) {
+    query.Name_Of_Supplier = supplier;
+  }
+
+  const options = {
+    collation: { locale: "en", strength: 2 },
+  };
+
+  console.log(query);
+  try {
+    const files = await Recurring.find(query, null, options);
     res.json({
       files: files,
     });
@@ -684,5 +730,6 @@ module.exports = {
   getrepair,
   formpurchase,
   formrepair,
-  search,
+  searchPurchase,
+  searchRepair,
 };

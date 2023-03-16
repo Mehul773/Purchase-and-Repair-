@@ -7,6 +7,45 @@ import PcSidebarRepair from "../components/PcSidebarRepair";
 const PcViewRepair = () => {
   const [files, setFiles] = useState([]);
   const [department, setDepartment] = useState("");
+  const [sr_no, setSr_No] = useState("");
+  const [bill_no, setBill_no] = useState("");
+  const [academic_year, setAcademicYear] = useState("");
+  const [supplier, setSupplier] = useState("");
+  const [all, setAll] = useState([]);
+
+  const Search = () => {
+    axios
+      .get(`http://localhost:5000/pc/searchrepair`, {
+        withCredentials: true,
+        params: {
+          department: department,
+          sr_no: sr_no,
+          academic_year: academic_year,
+          bill_no: bill_no,
+          supplier: supplier,
+        },
+      })
+      .then((response) => setFiles(response.data.files));
+  };
+  useEffect(() => {
+    Search();
+  }, [sr_no]);
+  useEffect(() => {
+    Search();
+  }, [academic_year]);
+  useEffect(() => {
+    Search();
+  }, [bill_no]);
+  useEffect(() => {
+    Search();
+  }, [supplier]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
+      .then((response) => setAll(response.data.supp));
+  });
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/getme", {
@@ -18,14 +57,18 @@ const PcViewRepair = () => {
   });
   useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getrepair", {
+      .get("http://localhost:5000/pc/searchrepair", {
         withCredentials: true,
         params: {
           department: department,
+          sr_no: sr_no,
+          academic_year: academic_year,
+          bill_no: bill_no,
+          supplier: supplier,
         },
       })
       .then((response) => setFiles(response.data.files));
-  });
+  }, [department]);
 
   return (
     <>
@@ -33,6 +76,55 @@ const PcViewRepair = () => {
         <HeaderPc />
         <PcSidebarRepair />
         <div className="title-size text-color">Recurring data</div>
+        <div>
+          <input
+            className="form-box-sm"
+            type="text"
+            name="sr_no"
+            placeholder="Enter sr_no"
+            value={sr_no}
+            onChange={(event) => {
+              setSr_No(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box-sm"
+            type="text"
+            name="academic_year"
+            placeholder="Enter Academic Year in yyyy-yy fromat"
+            value={academic_year}
+            onChange={(event) => {
+              setAcademicYear(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box-sm"
+            type="text"
+            name="bill_no"
+            placeholder="Enter Bill no."
+            value={bill_no}
+            onChange={(event) => {
+              setBill_no(event.target.value);
+            }}
+          ></input>
+          <select
+            className="form-dropdown-sm"
+            value={supplier}
+            onChange={(event) => {
+              // console.log(event.target.value);
+              if (event.target.value === "Select supplier") {
+                setSupplier("");
+              } else {
+                setSupplier(event.target.value);
+              }
+            }}
+          >
+            <option>Select supplier</option>
+            {all.map((supp) => (
+              <option key={supp.supplier}>{supp.supplier}</option>
+            ))}
+          </select>
+        </div>
         <div className="min-h-screen">
           <div>
             <p className="text-color title-size"></p>
