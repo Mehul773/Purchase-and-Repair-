@@ -28,47 +28,33 @@ const PcViewRepair = () => {
       .then((response) => setFiles(response.data.files));
   };
   useEffect(() => {
-    Search();
-  }, [sr_no]);
-  useEffect(() => {
-    Search();
-  }, [academic_year]);
-  useEffect(() => {
-    Search();
-  }, [bill_no]);
-  useEffect(() => {
-    Search();
-  }, [supplier]);
-
-  useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
-      .then((response) => setAll(response.data.supp));
-  });
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/pc/getme", {
+      .get("http://localhost:5000/pc/getsupp", {
         withCredentials: true,
       })
       .then((response) => {
-        setDepartment(response.data.department);
-      });
-  });
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/pc/searchrepair", {
-        withCredentials: true,
-        params: {
-          department: department,
-          sr_no: sr_no,
-          academic_year: academic_year,
-          bill_no: bill_no,
-          supplier: supplier,
-        },
+        setAll(response.data.supp);
+        return axios.get("http://localhost:5000/pc/getme", {
+          withCredentials: true,
+        });
       })
-      .then((response) => setFiles(response.data.files));
-  }, [department]);
+      .then((response) => {
+        setDepartment(response.data.department);
+        return axios.get(`http://localhost:5000/pc/searchrepair`, {
+          withCredentials: true,
+          params: {
+            department: department,
+            sr_no: sr_no,
+            academic_year: academic_year,
+            bill_no: bill_no,
+            supplier: supplier,
+          },
+        });
+      })
+      .then((response) => {
+        setFiles(response.data.files);
+      });
+  }, [department, sr_no, academic_year, bill_no, supplier]);
 
   return (
     <>

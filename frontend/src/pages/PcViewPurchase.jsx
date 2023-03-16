@@ -18,6 +18,7 @@ const PcViewPurchase = () => {
   const [all, setAll] = useState([]);
 
   const Search = () => {
+    console.log(sr_no);
     axios
       .get(`http://localhost:5000/pc/searchpurchase`, {
         withCredentials: true,
@@ -36,34 +37,79 @@ const PcViewPurchase = () => {
   };
 
   useEffect(() => {
-    Search();
-  }, [sr_no]);
-  useEffect(() => {
-    Search();
-  }, [price]);
-  useEffect(() => {
-    Search();
-  }, [academic_year]);
-  useEffect(() => {
-    Search();
-  }, [description]);
-  useEffect(() => {
-    Search();
-  }, [bill_no]);
-  useEffect(() => {
-    Search();
-  }, [po_no]);
-  useEffect(() => {
-    Search();
-  }, [supplier]);
-
-  useEffect(() => {
     axios
-      .get("http://localhost:5000/pc/getsupp", { withCredentials: true })
-      .then((response) => setAll(response.data.supp));
-  });
+      .get("http://localhost:5000/pc/getsupp", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setAll(response.data.supp);
+        return axios.get("http://localhost:5000/pc/getme", {
+          withCredentials: true,
+        });
+      })
+      .then((response) => {
+        setDepartment(response.data.department);
+        return axios.get(`http://localhost:5000/pc/searchpurchase`, {
+          withCredentials: true,
+          params: {
+            department: response.data.department,
+            sr_no: sr_no,
+            price: price,
+            academic_year: academic_year,
+            description: description,
+            bill_no: bill_no,
+            po_no: po_no,
+            supplier: supplier,
+          },
+        });
+      })
+      .then((response) => {
+        setFiles(response.data.files);
+      });
+  }, [
+    department,
+    sr_no,
+    price,
+    academic_year,
+    description,
+    bill_no,
+    po_no,
+    supplier,
+  ]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
+    axios
+      .all([
+        axios.get("http://localhost:5000/pc/getsupp", {
+          withCredentials: true,
+        }),
+        axios.get("http://localhost:5000/pc/getme", {
+          withCredentials: true,
+        }),
+        axios.get(`http://localhost:5000/pc/searchpurchase`, {
+          withCredentials: true,
+          params: {
+            department: department,
+            sr_no: sr_no,
+            price: price,
+            academic_year: academic_year,
+            description: description,
+            bill_no: bill_no,
+            po_no: po_no,
+            supplier: supplier,
+          },
+        }),
+      ])
+      .then(
+        axios.spread((res1, res2, res3) => {
+          setAll(res1.data.supp);
+          setDepartment(res2.data.department);
+          setFiles(res3.data.files);
+        })
+      );
+  }, [department, sr_no]); */
+
+  /*   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/getme", {
         withCredentials: true,
@@ -71,14 +117,14 @@ const PcViewPurchase = () => {
       .then((response) => {
         setDepartment(response.data.department);
       });
-  });
+  }, [department]);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/pc/search`, {
+      .get(`http://localhost:5000/pc/searchpurchase`, {
         withCredentials: true,
         params: {
           department: department,
-          sr_no: sr_no,
+                    sr_no: sr_no,
           price: price,
           academic_year: academic_year,
           description: description,
@@ -88,7 +134,7 @@ const PcViewPurchase = () => {
         },
       })
       .then((response) => setFiles(response.data.files));
-  }, [department]);
+  }, [department]); */
 
   return (
     <>

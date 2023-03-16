@@ -669,7 +669,6 @@ const searchPurchase = async (req, res) => {
 };
 
 const searchRepair = async (req, res) => {
-  Purchase.find({ $text: { $search: "coffee", $caseSensitive: false } });
   const department = req.query.department;
   const sr_no = req.query.sr_no;
   const academic_year = req.query.academic_year;
