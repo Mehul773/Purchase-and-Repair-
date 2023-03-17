@@ -7,11 +7,11 @@ const recurring = mongoose.Schema(
     Name_Of_Supplier: { type: String, default: "" },
     Bill_No: { type: String, default: "" },
     Date: { type: String, default: "" },
-    Amount: { type: String, default: "" },
+    Amount: { type: Number, default: "" },
     Material: { type: String, default: "" },
     Receivng_date: { type: String, default: "" },
     Year: { type: String, default: "" },
-    Yearly_expense: { type: String, default: "" },
+    Yearly_expense: { type: Number, default: "" },
     Department: { type: String, default: "" },
   },
   {

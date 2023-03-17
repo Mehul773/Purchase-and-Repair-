@@ -9,7 +9,7 @@ const purchase = mongoose.Schema(
     Description: { type: String, default: "" },
     Quantity: { type: String, default: "" },
     Total_Quantity: { type: String, default: "" },
-    Price: { type: String, default: "" },
+    Price: { type: Number, default: "" },
     Total: { type: String, default: "" },
     Bill_No: { type: String, default: "" },
     Invoice_Date: { type: String, default: "" },

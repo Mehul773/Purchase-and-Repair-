@@ -189,10 +189,10 @@ ul .left-li-div {
   background-color: #56dca8;
   text-align: center;
   border: 1px solid black;
-  margin: 10px 0;
+  margin: 2px 0;
   padding: 8px 10px;
   border-radius: 8px;
-  width: 150px;
+  width: auto;
 }
 
 .form-dropdown-sm {
@@ -525,4 +525,11 @@ span {
 }
 .try {
   border: 2px solid white;
+}
+
+.updown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
