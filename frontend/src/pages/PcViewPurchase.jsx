@@ -16,6 +16,7 @@ const PcViewPurchase = () => {
   const [po_no, setPO_no] = useState("");
   const [supplier, setSupplier] = useState("");
   const [all, setAll] = useState([]);
+  const [item, setItem] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,6 +31,7 @@ const PcViewPurchase = () => {
         bill_no: bill_no,
         po_no: po_no,
         supplier: supplier,
+        item: item,
       },
     });
     const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -65,6 +67,7 @@ const PcViewPurchase = () => {
             bill_no: bill_no,
             po_no: po_no,
             supplier: supplier,
+            item: item,
           },
         });
       })
@@ -80,6 +83,7 @@ const PcViewPurchase = () => {
     bill_no,
     po_no,
     supplier,
+    item,
   ]);
 
   return (
@@ -147,6 +151,16 @@ const PcViewPurchase = () => {
             value={po_no}
             onChange={(event) => {
               setPO_no(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box-sm"
+            type="text"
+            name="item"
+            placeholder="Enter Item"
+            value={item}
+            onChange={(event) => {
+              setItem(event.target.value);
             }}
           ></input>
           <select

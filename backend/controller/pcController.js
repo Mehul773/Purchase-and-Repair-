@@ -351,6 +351,7 @@ const downloadfile = async (req, res) => {
   const bill_no = req.query.bill_no;
   const po_no = req.query.po_no;
   const supplier = req.query.supplier;
+  const item = req.query.item;
 
   const query = {};
   if (sr_no) {
@@ -381,7 +382,11 @@ const downloadfile = async (req, res) => {
   if (supplier) {
     query.Supplier_Name = supplier;
   }
-
+  var searchKey;
+  if (item) {
+    searchKey = new RegExp(item, "i");
+    query.Item = searchKey;
+  }
   const options = {
     collation: { locale: "en", strength: 2 },
   };
@@ -395,7 +400,6 @@ const downloadfile = async (req, res) => {
         console.log("Error : ", err);
       } else {
         // delete data["Department"];
-        console.log(data);
         var temp = JSON.stringify(data); // Convert JSON to Json string
         temp = JSON.parse(temp); // Convert to object
         var ws = xlsx.utils.json_to_sheet(temp); // Convert Json Object into sheet of EXCEL
@@ -514,6 +518,7 @@ const downloadrepairfile = async (req, res) => {
   const academic_year = req.query.academic_year;
   const bill_no = req.query.bill_no;
   const supplier = req.query.supplier;
+  const description = req.query.description;
 
   const query = {};
   if (sr_no) {
@@ -533,7 +538,11 @@ const downloadrepairfile = async (req, res) => {
   if (supplier) {
     query.Name_Of_Supplier = supplier;
   }
-
+  var searchKey;
+  if (description) {
+    searchKey = new RegExp(description, "i");
+    query.Item = searchKey;
+  }
   const options = {
     collation: { locale: "en", strength: 2 },
   };
@@ -688,6 +697,7 @@ const searchPurchase = async (req, res) => {
   const bill_no = req.query.bill_no;
   const po_no = req.query.po_no;
   const supplier = req.query.supplier;
+  const item = req.query.item;
 
   const query = {};
   if (sr_no) {
@@ -718,10 +728,32 @@ const searchPurchase = async (req, res) => {
   if (supplier) {
     query.Supplier_Name = supplier;
   }
+  var searchKey;
+  if (item) {
+    searchKey = new RegExp(item, "i");
+    query.Item = searchKey;
+  }
 
   const options = {
     collation: { locale: "en", strength: 2 },
   };
+
+  /*   Purchase.Index({ title: "text" }, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send({ error: "Failed to create index." });
+    }
+    Purchase.find({ $text: { $search: item } }).toArray((err, files) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send({ error: "Failed to query database." });
+      }
+
+      res.json({
+        files: files,
+      });
+    });
+  }); */
 
   try {
     const files = await Purchase.find(query, null, options);
@@ -739,6 +771,7 @@ const searchRepair = async (req, res) => {
   const academic_year = req.query.academic_year;
   const bill_no = req.query.bill_no;
   const supplier = req.query.supplier;
+  const description = req.query.description;
 
   const query = {};
   if (sr_no) {
@@ -757,6 +790,12 @@ const searchRepair = async (req, res) => {
 
   if (supplier) {
     query.Name_Of_Supplier = supplier;
+  }
+
+  var searchKey;
+  if (description) {
+    searchKey = new RegExp(description, "i");
+    query.Description_of_Material = searchKey;
   }
 
   const options = {

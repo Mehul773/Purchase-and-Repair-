@@ -12,6 +12,7 @@ const PcViewRepair = () => {
   const [academic_year, setAcademicYear] = useState("");
   const [supplier, setSupplier] = useState("");
   const [all, setAll] = useState([]);
+  const [description, setDescription] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +26,7 @@ const PcViewRepair = () => {
           academic_year: academic_year,
           bill_no: bill_no,
           supplier: supplier,
+          description: description,
         },
       }
     );
@@ -58,13 +60,14 @@ const PcViewRepair = () => {
             academic_year: academic_year,
             bill_no: bill_no,
             supplier: supplier,
+            description: description,
           },
         });
       })
       .then((response) => {
         setFiles(response.data.files);
       });
-  }, [department, sr_no, academic_year, bill_no, supplier]);
+  }, [department, sr_no, academic_year, bill_no, supplier, description]);
 
   return (
     <>
@@ -101,6 +104,16 @@ const PcViewRepair = () => {
             value={bill_no}
             onChange={(event) => {
               setBill_no(event.target.value);
+            }}
+          ></input>
+          <input
+            className="form-box-sm"
+            type="text"
+            name="description"
+            placeholder="Enter Description"
+            value={description}
+            onChange={(event) => {
+              setDescription(event.target.value);
             }}
           ></input>
           <select
