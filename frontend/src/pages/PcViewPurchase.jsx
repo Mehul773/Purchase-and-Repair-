@@ -17,23 +17,28 @@ const PcViewPurchase = () => {
   const [supplier, setSupplier] = useState("");
   const [all, setAll] = useState([]);
 
-  const Search = () => {
-    console.log(sr_no);
-    axios
-      .get(`http://localhost:5000/pc/searchpurchase`, {
-        withCredentials: true,
-        params: {
-          department: department,
-          sr_no: sr_no,
-          price: price,
-          academic_year: academic_year,
-          description: description,
-          bill_no: bill_no,
-          po_no: po_no,
-          supplier: supplier,
-        },
-      })
-      .then((response) => setFiles(response.data.files));
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios.get("http://localhost:5000/pc/downloadfile", {
+      responseType: "blob",
+      params: {
+        department: department,
+        sr_no: sr_no,
+        price: price,
+        academic_year: academic_year,
+        description: description,
+        bill_no: bill_no,
+        po_no: po_no,
+        supplier: supplier,
+      },
+    });
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${Date.now()}` + "test.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   useEffect(() => {
@@ -76,65 +81,6 @@ const PcViewPurchase = () => {
     po_no,
     supplier,
   ]);
-
-  /*   useEffect(() => {
-    axios
-      .all([
-        axios.get("http://localhost:5000/pc/getsupp", {
-          withCredentials: true,
-        }),
-        axios.get("http://localhost:5000/pc/getme", {
-          withCredentials: true,
-        }),
-        axios.get(`http://localhost:5000/pc/searchpurchase`, {
-          withCredentials: true,
-          params: {
-            department: department,
-            sr_no: sr_no,
-            price: price,
-            academic_year: academic_year,
-            description: description,
-            bill_no: bill_no,
-            po_no: po_no,
-            supplier: supplier,
-          },
-        }),
-      ])
-      .then(
-        axios.spread((res1, res2, res3) => {
-          setAll(res1.data.supp);
-          setDepartment(res2.data.department);
-          setFiles(res3.data.files);
-        })
-      );
-  }, [department, sr_no]); */
-
-  /*   useEffect(() => {
-    axios
-      .get("http://localhost:5000/pc/getme", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setDepartment(response.data.department);
-      });
-  }, [department]);
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/pc/searchpurchase`, {
-        withCredentials: true,
-        params: {
-          department: department,
-                    sr_no: sr_no,
-          price: price,
-          academic_year: academic_year,
-          description: description,
-          bill_no: bill_no,
-          po_no: po_no,
-          supplier: supplier,
-        },
-      })
-      .then((response) => setFiles(response.data.files));
-  }, [department]); */
 
   return (
     <>
@@ -318,6 +264,23 @@ const PcViewPurchase = () => {
                     </table>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="download-flex">
+              <div>
+                <form
+                  onSubmit={(event) => {
+                    handleSubmit(event);
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="btn download-btn"
+                    role="button"
+                  >
+                    Download purchase file
+                  </button>
+                </form>
               </div>
             </div>
           </div>

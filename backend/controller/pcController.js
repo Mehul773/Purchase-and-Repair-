@@ -344,12 +344,53 @@ const uploadFile = async (req, res) => {
 // download purchase file
 const downloadfile = async (req, res) => {
   const department = req.query.department;
-  console.log("From download" + department);
+  const sr_no = req.query.sr_no;
+  const price = req.query.price;
+  const academic_year = req.query.academic_year;
+  const description = req.query.description;
+  const bill_no = req.query.bill_no;
+  const po_no = req.query.po_no;
+  const supplier = req.query.supplier;
+
+  const query = {};
+  if (sr_no) {
+    query.Sr_No = sr_no;
+  }
+  if (department) {
+    query.Department = department;
+  }
+  if (price) {
+    query.Price = price;
+  }
+  if (academic_year) {
+    query.Academic_Year = academic_year;
+  }
+
+  if (description) {
+    query.Description = description;
+  }
+
+  if (bill_no) {
+    query.Bill_No = bill_no;
+  }
+
+  if (po_no) {
+    query.PO_No = po_no;
+  }
+
+  if (supplier) {
+    query.Supplier_Name = supplier;
+  }
+
+  const options = {
+    collation: { locale: "en", strength: 2 },
+  };
+
   var wb = xlsx.utils.book_new();
-  Purchase.find(
-    { Department: department },
-    { _id: 0, Department: 0 },
-    (err, data) => {
+
+  Purchase.find(query, null, options)
+    .select("-_id -Department")
+    .exec((err, data) => {
       if (err) {
         console.log("Error : ", err);
       } else {
@@ -371,8 +412,7 @@ const downloadfile = async (req, res) => {
         );
         res.download(path1);
       }
-    }
-  );
+    });
 };
 
 // ==============================================================
@@ -470,11 +510,37 @@ const uploadRepairFile = async (req, res) => {
 // download repair file
 const downloadrepairfile = async (req, res) => {
   const department = req.query.department;
+  const sr_no = req.query.sr_no;
+  const academic_year = req.query.academic_year;
+  const bill_no = req.query.bill_no;
+  const supplier = req.query.supplier;
+
+  const query = {};
+  if (sr_no) {
+    query.Sr_No = sr_no;
+  }
+  if (department) {
+    query.Department = department;
+  }
+  if (academic_year) {
+    query.Year = academic_year;
+  }
+
+  if (bill_no) {
+    query.Bill_No = bill_no;
+  }
+
+  if (supplier) {
+    query.Name_Of_Supplier = supplier;
+  }
+
+  const options = {
+    collation: { locale: "en", strength: 2 },
+  };
   var wb = xlsx.utils.book_new();
-  Recurring.find(
-    { Department: department },
-    { _id: 0, Department: 0 },
-    (err, data) => {
+  Recurring.find(query, null, options)
+    .select("-_id -Department")
+    .exec((err, data) => {
       if (err) {
         console.log("Error : ", err);
       } else {
@@ -494,8 +560,7 @@ const downloadrepairfile = async (req, res) => {
         );
         res.download(path1);
       }
-    }
-  );
+    });
 };
 // =============================================================================
 // Get all purchase data
@@ -698,7 +763,6 @@ const searchRepair = async (req, res) => {
     collation: { locale: "en", strength: 2 },
   };
 
-  console.log(query);
   try {
     const files = await Recurring.find(query, null, options);
     res.json({

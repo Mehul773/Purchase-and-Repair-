@@ -13,10 +13,12 @@ const PcViewRepair = () => {
   const [supplier, setSupplier] = useState("");
   const [all, setAll] = useState([]);
 
-  const Search = () => {
-    axios
-      .get(`http://localhost:5000/pc/searchrepair`, {
-        withCredentials: true,
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios.get(
+      "http://localhost:5000/pc/downloadrepairfile",
+      {
+        responseType: "blob",
         params: {
           department: department,
           sr_no: sr_no,
@@ -24,9 +26,17 @@ const PcViewRepair = () => {
           bill_no: bill_no,
           supplier: supplier,
         },
-      })
-      .then((response) => setFiles(response.data.files));
+      }
+    );
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${Date.now()}` + "test.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/pc/getsupp", {
@@ -188,6 +198,23 @@ const PcViewRepair = () => {
                     </table>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="download-flex">
+              <div>
+                <form
+                  onSubmit={(event) => {
+                    handleSubmit(event);
+                  }}
+                >
+                  <button
+                    type="submit"
+                    className="btn download-btn"
+                    role="button"
+                  >
+                    Download repair file
+                  </button>
+                </form>
               </div>
             </div>
           </div>
